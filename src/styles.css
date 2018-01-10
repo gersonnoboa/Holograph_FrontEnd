@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    padding: 20px;  
+    background-color: #222;
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;    
+}
+
+a, body, .textFirstLevel {
+    color: white;
+}
+
+a:hover {
+    color: #b300b3
+}
+
+.navbar {
+    background-color: #800080;
+}
