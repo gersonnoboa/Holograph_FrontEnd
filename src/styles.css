@@ -6,12 +6,12 @@ html {
 body {
     height: 100%;
     padding: 20px;  
-    background-color: #222;
+    background-color: #ddd;
     font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;    
 }
 
 a, body, .textFirstLevel {
-    color: white;
+    color: #111;
 }
 
 a:hover {
@@ -20,4 +20,5 @@ a:hover {
 
 .navbar, .active {
     background-color: #800080;
+    color: #ddd;
 }

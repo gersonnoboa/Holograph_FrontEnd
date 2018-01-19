@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { FileUploadService } from './file-upload.service';
 import { AlertState, AlertType } from '../general/alert-state';
 import { Router } from '@angular/router';
+import { error } from 'util';
 
 @Component({
   selector: 'app-file-upload',
@@ -49,6 +50,7 @@ export class FileUploadComponent {
 
   private uploadFile(file: File) {
   	this.fileUploadService.uploadFile(file).subscribe(event => {
+      console.log(event.type);
       if (event.type === HttpEventType.UploadProgress) {
         //console.log(Math.round(100 * event.loaded / event.total));
       } else if (event instanceof HttpResponse) {
@@ -60,6 +62,9 @@ export class FileUploadComponent {
           this.changeToState(UploadState.UnsuccessfulUpload);
         }
       }
+    },
+    error => {
+      this.changeToState(UploadState.UnsuccessfulUpload);
     });
   }
 
@@ -72,13 +77,13 @@ export class FileUploadComponent {
         this.alertState.showAlert(AlertType.Danger, "File extension is incorrect. Please upload a file with a correct extension.");
         break;
       case UploadState.CorrectFileDropped:
-      this.alertState.showAlert(AlertType.Success, "Uploading file. Please wait...");
+        this.alertState.showAlert(AlertType.Success, "Uploading file. Please wait...");
         break;
       case UploadState.SuccessfulUpload:
-      this.alertState.showAlert(AlertType.Success, "The file upload was successful. Please wait while we mine the file...");
+        this.alertState.showAlert(AlertType.Success, "The file upload was successful. Please wait while we mine the file...");
         break;
       case UploadState.UnsuccessfulUpload:
-      this.alertState.showAlert(AlertType.Danger, "The file upload failed. Please try again later.");
+        this.alertState.showAlert(AlertType.Danger, "The file upload failed. Please try again later.");
         break;
       default:
         break;
