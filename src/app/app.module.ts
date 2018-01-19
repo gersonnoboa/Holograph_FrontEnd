@@ -7,16 +7,38 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FileUploadService } from './file-upload/file-upload.service';
 
+import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ActiveTimeComponent } from './active-time/active-time.component';
+import { TracesComponent } from './traces/traces.component';
+
+const appRoutes: Routes = [
+  { path: 'dashboard', component: DashboardComponent, children:[
+    { path: 'active-time', component: ActiveTimeComponent},
+    { path: 'traces', component: TracesComponent},
+  ]},
+  
+  { path: 'home', component: FileUploadComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     FileUploadComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent,
+    PageNotFoundComponent,
+    ActiveTimeComponent,
+    TracesComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     FileUploadService
@@ -24,3 +46,5 @@ import { FileUploadService } from './file-upload/file-upload.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+class RoutesDemoAppModule {}

@@ -18,6 +18,6 @@ a:hover {
     color: #b300b3
 }
 
-.navbar {
+.navbar, .active {
     background-color: #800080;
 }
