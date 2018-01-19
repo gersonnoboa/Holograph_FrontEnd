@@ -1,5 +1,4 @@
-<div class="alert center-block alert-success" role="alert" *ngIf="isSuccessfulFileUploaded">File extension is correct. File will be uploaded now.</div>
-<div class="alert center-block alert-danger" role="alert" *ngIf="isWrongFileUploaded">Wrong file extension. Please try again.</div>
+<div class="alert center-block {{ alertState.type }}" role="alert" *ngIf="alertState.shouldShow">{{ alertState.message }}</div>
 
 <div class="file-upload" draggable="true" ngClass="{{dragAreaClass}}">
     <div class="row">
@@ -16,3 +15,9 @@
         <li *ngFor="let err of errors">{{err}}</li>
     </ul>
 </div>
+
+<!-- <label class="btn btn-default">
+	<input type="file" (change)="selectFile($event)">
+</label>
+ 
+<button class="btn btn-success" (click)="upload()">Upload</button> -->
