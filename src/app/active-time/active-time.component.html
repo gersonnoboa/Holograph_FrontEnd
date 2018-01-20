@@ -1,5 +1,75 @@
 <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
 
-<div *ngIf="!isLoading">
-    Has loaded active time
+<div class="parameter-request" *ngIf="!isLoading">
+
+    <mat-horizontal-stepper [linear]="false">
+        <mat-step>
+            <form>
+                <ng-template matStepLabel>Resource field</ng-template>
+                Select the parameter that represents the resources.
+                <div>
+                    <mat-form-field>
+                        <mat-select placeholder="Resource field">
+                            <mat-option *ngFor="let header of headers" [value]="header">
+                                {{ header }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="navigation-buttons">
+                    <button mat-raised-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <form>
+                <ng-template matStepLabel>Type</ng-template>
+                Select the type of log, in order to determine the best way of calculating active time.
+                <div>
+                    <mat-radio-group class="example-radio-group">
+                        <mat-radio-button class="example-radio-button" name="type" value="0" checked>
+                            Has active time
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" name="type" value="1">
+                            Has start and end date
+                        </mat-radio-button>
+                        <mat-radio-button class="example-radio-button" name="type" value="2">
+                            Has timestamp only
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="navigation-buttons">
+                    <button mat-raised-button matStepperPrevious>Back</button>
+                    <button mat-raised-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Time params</ng-template>
+            Select the appropriate parameters.
+            <div>
+                <mat-form-field>
+                    <mat-select placeholder="Active time field">
+                        <mat-option *ngFor="let header of headers" [value]="header">
+                            {{ header }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="navigation-buttons">
+                <button mat-raised-button matStepperPrevious>Back</button>
+                <button mat-raised-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are done. Please press Submit to send the information.
+            <div>
+                <button mat-raised-button color="primary">Submit</button>
+            </div>
+            <div class="navigation-buttons">
+                <button mat-raised-button matStepperPrevious>Back</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
 </div>

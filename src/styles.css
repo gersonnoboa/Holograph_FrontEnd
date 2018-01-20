@@ -2,13 +2,18 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+* {
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif !important;
+}
+
 html {
     height: 100%;
 }
+
 body {
     height: 100%;
     background-color: #ddd;
-    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;    
+    
 }
 
 a, body, .textFirstLevel {

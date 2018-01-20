@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FileUploadService } from './file-upload/file-upload.service';
+import { FormsModule } from '@angular/forms';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     MaterialModule

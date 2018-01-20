@@ -1,0 +1,9 @@
+.example-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.navigation-buttons {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
