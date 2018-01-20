@@ -1,3 +1,5 @@
-<p>
-  active-time works!
-</p>
+<mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
+
+<div *ngIf="!isLoading">
+    Has loaded active time
+</div>

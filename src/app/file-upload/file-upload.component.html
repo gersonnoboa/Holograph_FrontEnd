@@ -1,4 +1,7 @@
-<div class="alert center-block {{ alertState.type }}" role="alert" *ngIf="alertState.shouldShow">{{ alertState.message }}</div>
+<div class="alert center-block alert-dismissible {{ alertState.type }}" role="alert" *ngIf="alertState.shouldShow">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ alertState.message }}
+</div>
 
 <div class="file-upload" draggable="true" ngClass="{{dragAreaClass}}">
     <div class="row">

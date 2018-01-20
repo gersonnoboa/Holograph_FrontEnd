@@ -13,6 +13,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ActiveTimeComponent } from './active-time/active-time.component';
 import { TracesComponent } from './traces/traces.component';
+import { MaterialModule } from './material/material.module';
+import { MiningService } from './mining/mining.service';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, children:[
@@ -38,10 +40,15 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MaterialModule
+  ],
+  exports: [
+    MaterialModule
   ],
   providers: [
-    FileUploadService
+    FileUploadService,
+    MiningService
   ],
   bootstrap: [AppComponent]
 })

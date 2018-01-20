@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MiningService } from '../mining/mining.service';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-traces',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TracesComponent implements OnInit {
 
-  constructor() { }
+  isLoading: boolean;
+
+  constructor(private miningService: MiningService) { 
+    this.isLoading = true;
+  }
 
   ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
+    this.miningService.requestActiveTime().subscribe(event => {
+      if (event instanceof HttpResponse) {
+        this.isLoading = false;
+        console.log("success trace" + event.body);
+        
+      }
+    },
+    error => {
+      this.isLoading = false;
+      console.log("error");
+      if (error instanceof HttpErrorResponse) {
+        console.log(error.message);
+      }
+      
+    });
   }
 
 }

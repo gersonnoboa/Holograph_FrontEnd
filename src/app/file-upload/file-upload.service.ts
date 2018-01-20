@@ -10,7 +10,6 @@ export class FileUploadService {
   uploadFile(file: File): Observable<HttpEvent<{}>> {
   	let formData = new FormData();
   	formData.append('file', file);
-	console.log("File: " + file.name);
   	const req = new HttpRequest("POST", "http://localhost:5000/upload", formData, {
   		reportProgress: true,
   		responseType: "text"
