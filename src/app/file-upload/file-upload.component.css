@@ -1,3 +1,7 @@
+.container {
+    margin-top: 20px;
+}
+
 .file-upload {
     height: 200px;
     width: 600px;

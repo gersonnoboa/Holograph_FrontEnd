@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MiningService } from '../mining/mining.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-traces',
@@ -9,10 +10,16 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 })
 export class TracesComponent implements OnInit {
 
+  formTraces: FormGroup;
   isLoading: boolean;
 
-  constructor(private miningService: MiningService) { 
+  constructor(private miningService: MiningService, private fb: FormBuilder) { 
     this.isLoading = true;
+
+    this.formTraces = fb.group ({
+      "resource": "",
+      "caseID": ""
+    });
   }
 
   ngOnInit() {
@@ -20,11 +27,10 @@ export class TracesComponent implements OnInit {
   }
 
   getData() {
-    this.miningService.requestActiveTime().subscribe(event => {
+    this.miningService.requestFileHeaders().subscribe(event => {
       if (event instanceof HttpResponse) {
         this.isLoading = false;
         console.log("success trace" + event.body);
-        
       }
     },
     error => {

@@ -4,6 +4,10 @@
 }
 
 .navigation-buttons {
-    padding-top: 10px;
-    padding-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+mat-select {
+  width: 200px;
 }

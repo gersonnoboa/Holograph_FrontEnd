@@ -2,14 +2,14 @@
 
 <div class="parameter-request" *ngIf="!isLoading">
 
-    <mat-horizontal-stepper [linear]="false">
-        <mat-step>
-            <form>
+    <form [formGroup]="formTraces">
+        <mat-horizontal-stepper [linear]="true">
+            <mat-step>
                 <ng-template matStepLabel>Resource field</ng-template>
                 Select the parameter that represents the resources.
                 <div>
                     <mat-form-field>
-                        <mat-select placeholder="Resource field">
+                        <mat-select placeholder="Resource field" formControlName="resource">
                             <mat-option *ngFor="let header of headers" [value]="header">
                                 {{ header }}
                             </mat-option>
@@ -19,34 +19,33 @@
                 <div class="navigation-buttons">
                     <button mat-raised-button matStepperNext>Next</button>
                 </div>
-            </form>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Case ID field</ng-template>
-            Select the parameter that represents the case ID.
-            <div>
-                <mat-form-field>
-                    <mat-select placeholder="Case ID field">
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Case ID field</ng-template>
+                Select the parameter that represents the case ID.
+                <div>
+                    <mat-select placeholder="Case ID field" formControlName="caseID">
                         <mat-option *ngFor="let header of headers" [value]="header">
                             {{ header }}
                         </mat-option>
                     </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="navigation-buttons">
-                <button mat-raised-button matStepperPrevious>Back</button>
-                <button mat-raised-button matStepperNext>Next</button>
-            </div>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            You are done. Please press Submit to send the information.
-            <div>
-                <button mat-raised-button color="primary">Submit</button>
-            </div>
-            <div class="navigation-buttons">
-                <button mat-raised-button matStepperPrevious>Back</button>
-            </div>
-        </mat-step>
-    </mat-horizontal-stepper>
+                </div>
+                <div class="navigation-buttons">
+                    <button mat-raised-button matStepperPrevious>Back</button>
+                    <button mat-raised-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                You are done. Please press Submit to send the information.
+                <div>
+                    <button mat-raised-button color="primary">Submit</button>
+                </div>
+                <div class="navigation-buttons">
+                    <button mat-raised-button matStepperPrevious>Back</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </form>
+    
 </div>

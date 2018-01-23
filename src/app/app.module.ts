@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FileUploadService } from './file-upload/file-upload.service';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -16,6 +16,7 @@ import { ActiveTimeComponent } from './active-time/active-time.component';
 import { TracesComponent } from './traces/traces.component';
 import { MaterialModule } from './material/material.module';
 import { MiningService } from './mining/mining.service';
+import { ActiveTimeService } from './active-time/active-time.service';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, children:[
@@ -40,17 +41,18 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     MaterialModule
   ],
   providers: [
     FileUploadService,
-    MiningService
+    MiningService,
+    ActiveTimeService
   ],
   bootstrap: [AppComponent]
 })

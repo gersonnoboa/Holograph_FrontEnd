@@ -7,8 +7,8 @@ export class MiningService {
 
   constructor(private http: HttpClient) { }
 
-  requestActiveTime(): Observable<HttpEvent<{}>> {
-    const req = new HttpRequest("GET", "http://localhost:5000/active-time", {
+  requestFileHeaders(): Observable<HttpEvent<{}>> {
+    const req = new HttpRequest("GET", "http://localhost:5000/file-headers", {
       responseType: "json"
     });
 
