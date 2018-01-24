@@ -9,12 +9,6 @@ export class ActiveTimeService {
   constructor(private http: HttpClient) { }
 
   requestActiveTimeInformation(parameters) {
-    let formData = new FormData();
-    formData.append('parameters', parameters);
-    const req = new HttpRequest("POST", "http://localhost:5000/active-time", formData, {
-      responseType: "json"
-    });
-
-    return this.http.request(req);
+    return this.http.post("http://localhost:5000/active-time", parameters);
   }
 }

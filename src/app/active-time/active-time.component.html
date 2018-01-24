@@ -4,10 +4,18 @@
     <form [formGroup]="formActiveTime">
         <mat-horizontal-stepper [linear]="false">
             <mat-step>
-                <ng-template matStepLabel>Resource field</ng-template>
+                <ng-template matStepLabel>Resource and activity</ng-template>
                 <p>Select the parameter that represents the resources.</p>
                 <p>
                     <mat-select placeholder="Resource field" formControlName="resource">
+                        <mat-option *ngFor="let header of headers" [value]="header">
+                            {{ header }}
+                        </mat-option>
+                    </mat-select>
+                </p>
+                <p>Select the parameter that represents the activities.</p>
+                <p>
+                    <mat-select placeholder="Activity field" formControlName="activity">
                         <mat-option *ngFor="let header of headers" [value]="header">
                             {{ header }}
                         </mat-option>

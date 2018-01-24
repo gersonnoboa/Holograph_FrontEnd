@@ -29,7 +29,8 @@ export class ActiveTimeComponent implements OnInit {
 
     this.formActiveTime = fb.group({
       "resource": "",
-      "type": LogType.HasActiveTime,
+      "activity": "",
+      "type": LogType.ActiveTime,
       "parameterOne": "",
       "parameterTwo": ""
     });
@@ -45,7 +46,7 @@ export class ActiveTimeComponent implements OnInit {
         this.isLoading = false;
         this.headers = event.body as Array<String>;
         this.subscribeToLogTypeChanges(); 
-        this.showAppropriateParameters(LogType.HasActiveTime);
+        this.showAppropriateParameters(LogType.ActiveTime);
       }
     },
     error => {
@@ -65,17 +66,17 @@ export class ActiveTimeComponent implements OnInit {
   }
 
   showAppropriateParameters(type: LogType) {
-    this.shouldShowParameterTwo = (type == LogType.HasStartAndEndDate);
+    this.shouldShowParameterTwo = (type == LogType.StartAndEndDate);
     
     switch (type) {
-      case LogType.HasActiveTime:
+      case LogType.ActiveTime:
         this.parameterOneRequestPlaceholder = "Active time";
         break;
-      case LogType.HasStartAndEndDate:
+      case LogType.StartAndEndDate:
         this.parameterOneRequestPlaceholder = "Start time";
         this.parameterTwoRequestPlaceholder = "End time";
         break;
-      case LogType.HasTimestamp:
+      case LogType.Timestamp:
         this.parameterOneRequestPlaceholder = "Timestamp";
         break;
       default:
@@ -90,6 +91,7 @@ export class ActiveTimeComponent implements OnInit {
     console.log(this.formActiveTime);
     console.log(this.formActiveTime.value);
     this.activeTimeService.requestActiveTimeInformation(this.formActiveTime.value).subscribe(event => {
+      console.log(event);
       if (event instanceof HttpResponse) {
         console.log(event.body);
       }
