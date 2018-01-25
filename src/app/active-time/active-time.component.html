@@ -5,7 +5,7 @@
         <mat-horizontal-stepper [linear]="false">
             <mat-step>
                 <ng-template matStepLabel>Resource and activity</ng-template>
-                <p>Select the parameter that represents the resources.</p>
+                <p>Select the parameter that represents the Resource field.</p>
                 <p>
                     <mat-select placeholder="Resource field" formControlName="resource">
                         <mat-option *ngFor="let header of headers" [value]="header">
@@ -13,7 +13,7 @@
                         </mat-option>
                     </mat-select>
                 </p>
-                <p>Select the parameter that represents the activities.</p>
+                <p>Select the parameter that represents the Activity field.</p>
                 <p>
                     <mat-select placeholder="Activity field" formControlName="activity">
                         <mat-option *ngFor="let header of headers" [value]="header">
@@ -42,9 +42,7 @@
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Time params</ng-template>
-                <p>Select the appropriate parameters.</p>
-                
-                <p>{{ parameterOneRequestPlaceholder }}</p>
+                <p>Select the value that represents the {{ parameterOneRequestPlaceholder }} field.</p>
                 <p>
                     <mat-select placeholder="{{ parameterOneRequestPlaceholder }}" formControlName="parameterOne">
                         <mat-option *ngFor="let header of headers" [value]="header">
@@ -54,7 +52,7 @@
                 </p>
 
                 <div *ngIf="shouldShowParameterTwo">
-                    <p>{{ parameterTwoRequestPlaceholder }}</p>
+                    <p>Select the value that represents the {{ parameterTwoRequestPlaceholder }} field.</p>
                     <p>
                         <mat-select placeholder="{{ parameterTwoRequestPlaceholder }}" formControlName="parameterTwo">
                             <mat-option *ngFor="let header of headers" [value]="header">

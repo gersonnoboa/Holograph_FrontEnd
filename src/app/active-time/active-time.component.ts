@@ -70,11 +70,11 @@ export class ActiveTimeComponent implements OnInit {
     
     switch (type) {
       case LogType.ActiveTime:
-        this.parameterOneRequestPlaceholder = "Active time";
+        this.parameterOneRequestPlaceholder = "Active Time";
         break;
       case LogType.StartAndEndDate:
-        this.parameterOneRequestPlaceholder = "Start time";
-        this.parameterTwoRequestPlaceholder = "End time";
+        this.parameterOneRequestPlaceholder = "Start Time";
+        this.parameterTwoRequestPlaceholder = "End Time";
         break;
       case LogType.Timestamp:
         this.parameterOneRequestPlaceholder = "Timestamp";
