@@ -44,6 +44,8 @@ export class DashboardComponent implements OnInit {
     }
   ];
 
+  data: Array<any>;
+
   constructor(private miningService: MiningService, private fb: FormBuilder, private activeTimeService: DashboardService) {
     this.changeComponentState(ComponentState.Loading);
 
@@ -80,17 +82,10 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmitClicked() {
-    console.log("form submitted");
-    console.log(this.formActiveTime);
-    console.log(this.formActiveTime.value);
     this.changeComponentState(ComponentState.Loading);
     this.activeTimeService.requestActiveTimeInformation(this.formActiveTime.value).subscribe(event => {
-      console.log(event);
       this.changeComponentState(ComponentState.ShowingActiveTime);
-      if (event instanceof HttpResponse) {
-        console.log(event.body);
-        this.showActiveTimeInformation(event.body);
-      }
+      this.showActiveTimeInformation(event);
     },
       error => {
         this.changeComponentState(ComponentState.AskingForFields);
@@ -101,14 +96,24 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  showActiveTimeInformation(information: Array<any>) {
-    let activities = Utils.selectFromArray(information, "activity");
+  onSubmiTestClicked(){
+    this.formActiveTime = this.fb.group({
+      "resource": "Resource",
+      "activity": "Activity",
+      "type": LogType.StartAndEndDate,
+      "parameterOne": "StartTime",
+      "parameterTwo": "EndTime"
+    });
+    this.onSubmitClicked();
+  }
 
+  showActiveTimeInformation(information: any) {
+    let activities = Utils.selectFromArray(information, "activity");
+    this.data = information;
   }
 
   subscribeToLogTypeChanges() {
     this.formActiveTime.get("type").valueChanges.subscribe((value) => {
-      console.log(value);
       this.showAppropriateParameters(value);
     });
   }

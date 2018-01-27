@@ -1,0 +1,14 @@
+mat-card {
+    margin: 20px 0px;
+}
+
+mat-select {
+  width: 200px;
+}
+
+.chart {
+  width: 100%;
+  margin: 0 auto;
+
+  height: 400px;
+}

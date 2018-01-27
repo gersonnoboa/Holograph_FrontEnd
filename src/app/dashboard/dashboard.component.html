@@ -1,4 +1,5 @@
 <div class="container">
+
     <div class="alert center-block alert-dismissible {{ alertState.type }}" role="alert" *ngIf="alertState.shouldShow">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -9,6 +10,8 @@
     <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
     
     <div class="parameter-request" *ngIf="isAskingForFields">
+        <button type="button" mat-raised-button color="primary" (click)="onSubmiTestClicked()">Submit Test</button>
+        
         <form [formGroup]="formActiveTime">
             <mat-horizontal-stepper [linear]="false">
                 <mat-step>
@@ -93,7 +96,7 @@
     <mat-tab-group *ngIf="isShowingInformation">
         <mat-tab label="By active time">
             <div>
-                <app-active-time></app-active-time>
+                <app-active-time [data]="data"></app-active-time>
             </div>
         </mat-tab>
         <mat-tab label="By trace">

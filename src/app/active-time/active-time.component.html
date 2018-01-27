@@ -1,5 +1,33 @@
 <div>
-    <ngx-charts-bar-vertical [view]="view" [results]="single" [xAxis]="true" [yAxis]="true" [legend]="true" [showXAxisLabel]="true"
-        [showYAxisLabel]="true" [xAxisLabel]="Resource" [yAxisLabel]="Seconds" (select)="onSelect($event)">
-    </ngx-charts-bar-vertical>
+
+    <div *ngIf="isAskingForActivity">
+        <mat-card>
+            <mat-grid-list cols="2" rowHeight="20px">
+                <mat-grid-tile>
+                    <mat-select placeholder="Activity" (change)="onActivityChange($event)">
+                        <mat-option *ngFor="let activity of activities" [value]="activity">
+                            {{ activity }}
+                        </mat-option>
+                    </mat-select>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-select placeholder="Visualization">
+                        <mat-option value="total" selected>
+                            Total active time
+                        </mat-option>
+                        <mat-option value="average">
+                            Average active time
+                        </mat-option>
+                    </mat-select>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card>
+    </div>
+
+    <div *ngIf="isShowingChart" class="chart">
+            <ngx-charts-bar-vertical [results]="visualizationData" [xAxis]="true" [yAxis]="true" [legend]="true" [showXAxisLabel]="true"
+                [showYAxisLabel]="true" [xAxisLabel]="Resource" [yAxisLabel]="Seconds" (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+    </div>
+    
 </div>

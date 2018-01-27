@@ -1,5 +1,6 @@
 .container {
-    margin: 20px 0px;
+    width: 90%;
+    margin: 20px auto;
 }
 
 .example-radio-group {

@@ -30,7 +30,6 @@ export class TracesComponent implements OnInit {
     this.miningService.requestFileHeaders().subscribe(event => {
       if (event instanceof HttpResponse) {
         this.isLoading = false;
-        console.log("success trace" + event.body);
       }
     },
     error => {
