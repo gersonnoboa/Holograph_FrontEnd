@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MiningService } from '../mining/mining.service';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { HttpEventType } from '@angular/common/http/src/response';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActiveTimeService } from './active-time.service';
-import { LogType } from '../general/general';
+import { AlertState, AlertType } from '../general/alert-state';
+import { Utils } from '../general/utils';
 
 @Component({
   selector: 'app-active-time',
@@ -13,94 +10,56 @@ import { LogType } from '../general/general';
 })
 export class ActiveTimeComponent implements OnInit {
 
-  private LogType = LogType;
-  private typeChoices = Object.values(LogType).filter(e => typeof (e) == "string");
-  formActiveTime: FormGroup;
-
-  parameterOneRequestPlaceholder: string;
-  parameterTwoRequestPlaceholder: string;
-  shouldShowParameterTwo: boolean;
-
   isLoading: boolean;
-  headers: Array<String>;
+  isShowingActiveTime: boolean;
+  alertState: AlertState = new AlertState();
 
-  constructor(private miningService: MiningService, private fb: FormBuilder, private activeTimeService: ActiveTimeService) { 
-    this.isLoading = true;
+  view: any[] = [700, 400];
 
-    this.formActiveTime = fb.group({
-      "resource": "",
-      "activity": "",
-      "type": LogType.ActiveTime,
-      "parameterOne": "",
-      "parameterTwo": ""
-    });
-  }
-
-  ngOnInit() {
-    this.getData();
-  }
-
-  getData() {
-    this.miningService.requestFileHeaders().subscribe(event => {
-      if (event instanceof HttpResponse) {
-        this.isLoading = false;
-        this.headers = event.body as Array<String>;
-        this.subscribeToLogTypeChanges(); 
-        this.showAppropriateParameters(LogType.ActiveTime);
-      }
+  single = [
+    {
+      "name": "Germany",
+      "value": 8940000
     },
-    error => {
-      this.isLoading = false;
-      console.log("error");
-      if (error instanceof HttpErrorResponse) {
-        console.log(error.message);
-      }
-    });
+    {
+      "name": "USA",
+      "value": 5000000
+    }
+  ];
+
+  constructor(private activeTimeService: ActiveTimeService) { 
   }
 
-  subscribeToLogTypeChanges() {
-    this.formActiveTime.get("type").valueChanges.subscribe((value) => {
-      console.log(value);
-      this.showAppropriateParameters(value);
-    });
+  ngOnInit() {    
   }
 
-  showAppropriateParameters(type: LogType) {
-    this.shouldShowParameterTwo = (type == LogType.StartAndEndDate);
+  changeComponentState(state: ComponentState) {
+    this.isLoading = false;
+    this.isShowingActiveTime = false;
+
+    switch (state) {
+      case ComponentState.Loading:
+        this.isLoading = true;
+        break;
+      case ComponentState.ShowingActiveTime:
+        this.isShowingActiveTime = true;
+        break;
     
-    switch (type) {
-      case LogType.ActiveTime:
-        this.parameterOneRequestPlaceholder = "Active Time";
-        break;
-      case LogType.StartAndEndDate:
-        this.parameterOneRequestPlaceholder = "Start Time";
-        this.parameterTwoRequestPlaceholder = "End Time";
-        break;
-      case LogType.Timestamp:
-        this.parameterOneRequestPlaceholder = "Timestamp";
-        break;
+      case ComponentState.None:
       default:
-        console.log("goes to default");
         break;
     }
-
+  }
+  
+  showAlert(){
+    this.alertState.showAlert(AlertType.Danger, "An error has occurred. Please try again later.");
   }
 
-  onSubmitClicked(){
-    console.log("form submitted");
-    console.log(this.formActiveTime);
-    console.log(this.formActiveTime.value);
-    this.activeTimeService.requestActiveTimeInformation(this.formActiveTime.value).subscribe(event => {
-      console.log(event);
-      if (event instanceof HttpResponse) {
-        console.log(event.body);
-      }
-    },
-    error => {
-      if (error instanceof HttpErrorResponse) {
-        console.log(error.message);
-      }
-    });
-  }
+}
 
+enum ComponentState {
+  None,
+  Loading,
+  AskingForFields,
+  ShowingActiveTime
 }

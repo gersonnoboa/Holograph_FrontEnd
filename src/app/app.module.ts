@@ -18,11 +18,11 @@ import { MaterialModule } from './material/material.module';
 import { MiningService } from './mining/mining.service';
 import { ActiveTimeService } from './active-time/active-time.service';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { DashboardService } from './dashboard/dashboard.service';
+
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, children:[
-    { path: 'active-time', component: ActiveTimeComponent},
-    { path: 'traces', component: TracesComponent},
-  ]},
+  { path: 'dashboard', component: DashboardComponent },
   
   { path: 'home', component: FileUploadComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -44,7 +44,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule
   ],
   exports: [
     MaterialModule
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
   providers: [
     FileUploadService,
     MiningService,
-    ActiveTimeService
+    ActiveTimeService,
+    DashboardService
   ],
   bootstrap: [AppComponent]
 })
