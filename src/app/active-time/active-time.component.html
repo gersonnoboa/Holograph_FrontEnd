@@ -1,33 +1,58 @@
 <div>
 
-    <div *ngIf="isAskingForActivity">
+    <div>
         <mat-card>
-            <mat-grid-list cols="2" rowHeight="20px">
+            <mat-grid-list cols="3" rowHeight="70px">
                 <mat-grid-tile>
-                    <mat-select placeholder="Activity" (change)="onActivityChange($event)">
-                        <mat-option *ngFor="let activity of activities" [value]="activity">
-                            {{ activity }}
-                        </mat-option>
-                    </mat-select>
+                    <mat-form-field>
+                        <mat-select placeholder="Activity" [value]="currentActivity" (change)="onActivityChange($event)">
+                            <mat-option *ngFor="let activity of activities" [value]="activity">
+                                {{ activity }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
-                    <mat-select placeholder="Visualization">
-                        <mat-option value="total" selected>
-                            Total active time
-                        </mat-option>
-                        <mat-option value="average">
-                            Average active time
-                        </mat-option>
-                    </mat-select>
+                    <mat-form-field>
+                        <mat-select placeholder="Visualization" [value]="currentVisualization" (change)="onVisualizationChange($event)">
+                            <mat-option *ngFor="let visualization of visualizationChoices" [value]="visualization">
+                                {{ visualization }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-select placeholder="Chart Type" [value]="currentChartType" (change)="onChartTypeChange($event)">
+                            <mat-option *ngFor="let chart of chartTypeChoices" [value]="chart">
+                                {{ chart }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-card>
     </div>
 
-    <div *ngIf="isShowingChart" class="chart">
-        <ngx-charts-bar-vertical [results]="visualizationData" [xAxis]="true" [yAxis]="true" [legend]="true" [showXAxisLabel]="true"
-            [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
+    <div class="chart">
+        <ngx-charts-bar-vertical *ngIf="currentChartType == ChartType.Bar" [results]="visualizationData" [xAxis]="true" [yAxis]="true" 
+        [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
         </ngx-charts-bar-vertical>
+
+        <ngx-charts-pie-chart *ngIf="currentChartType == ChartType.Pie" [results]="visualizationData" [labels]="true" [legend]="true" 
+        (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+
+        <ngx-charts-advanced-pie-chart *ngIf="currentChartType == ChartType.AdvancedPie" [results]="visualizationData" (select)="onSelect($event)">
+        </ngx-charts-advanced-pie-chart>
+
+        <ngx-charts-pie-grid *ngIf="currentChartType == ChartType.PieGrid" [results]="visualizationData" (select)="onSelect($event)">
+        </ngx-charts-pie-grid>
+
+        <ngx-charts-number-card *ngIf="currentChartType == ChartType.NumberCards" [results]="visualizationData" (select)="onSelect($event)">
+        </ngx-charts-number-card>
     </div>
+
+    
     
 </div>

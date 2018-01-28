@@ -16,21 +16,23 @@
             <mat-horizontal-stepper [linear]="false">
                 <mat-step>
                     <ng-template matStepLabel>Resource and activity</ng-template>
-                    <p>Select the parameter that represents the Resource field.</p>
                     <p>
-                        <mat-select placeholder="Resource field" formControlName="resource">
-                            <mat-option *ngFor="let header of headers" [value]="header">
-                                {{ header }}
-                            </mat-option>
-                        </mat-select>
+                        <mat-form-field>
+                            <mat-select placeholder="Resource field" formControlName="resource">
+                                <mat-option *ngFor="let header of headers" [value]="header">
+                                    {{ header }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </p>
-                    <p>Select the parameter that represents the Activity field.</p>
                     <p>
-                        <mat-select placeholder="Activity field" formControlName="activity">
+                        <mat-form-field>
+                            <mat-select placeholder="Activity field" formControlName="activity">
                             <mat-option *ngFor="let header of headers" [value]="header">
                                 {{ header }}
                             </mat-option>
                         </mat-select>
+                        </mat-form-field>
                     </p>
                     <div class="navigation-buttons">
                         <button type="button" mat-raised-button matStepperNext>Next</button>
@@ -53,23 +55,25 @@
                 </mat-step>
                 <mat-step>
                     <ng-template matStepLabel>Time params</ng-template>
-                    <p>Select the value that represents the {{ parameterOneRequestPlaceholder }} field.</p>
                     <p>
-                        <mat-select placeholder="{{ parameterOneRequestPlaceholder }}" formControlName="parameterOne">
-                            <mat-option *ngFor="let header of headers" [value]="header">
-                                {{ header }}
-                            </mat-option>
-                        </mat-select>
-                    </p>
-    
-                    <div *ngIf="shouldShowParameterTwo">
-                        <p>Select the value that represents the {{ parameterTwoRequestPlaceholder }} field.</p>
-                        <p>
-                            <mat-select placeholder="{{ parameterTwoRequestPlaceholder }}" formControlName="parameterTwo">
+                        <mat-form-field>
+                            <mat-select placeholder="{{ parameterOneRequestPlaceholder }}" formControlName="parameterOne">
                                 <mat-option *ngFor="let header of headers" [value]="header">
                                     {{ header }}
                                 </mat-option>
                             </mat-select>
+                        </mat-form-field>
+                    </p>
+    
+                    <div *ngIf="shouldShowParameterTwo">
+                        <p>
+                            <mat-form-field>
+                                <mat-select placeholder="{{ parameterTwoRequestPlaceholder }}" formControlName="parameterTwo">
+                                    <mat-option *ngFor="let header of headers" [value]="header">
+                                        {{ header }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </p>
                     </div>
     

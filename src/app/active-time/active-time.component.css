@@ -1,4 +1,4 @@
-mat-card {
+mat-card, mat-grid-list {
     margin: 20px 0px;
 }
 
@@ -7,7 +7,7 @@ mat-select {
 }
 
 .chart {
-  width: 100%;
+  width: 70%;
   margin: 0 auto;
 
   height: 400px;
