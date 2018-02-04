@@ -51,8 +51,6 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
     this.data = this.data as Array<any>;
     this.activities = Utils.selectFromArray(this.data, "activity");
     if (this.activities.length > 0) {
-      console.log("should!!!");
-      console.log(this.activities);
       this.currentActivity = this.activities[0];
       this.changeComponentState(ComponentState.IsShowingChart);
       this.changeVisualizationData();
@@ -60,7 +58,6 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   }
 
   onActivityChange(event){
-    console.log("activity is changing");
     this.changeComponentState(ComponentState.IsShowingChart);
     this.currentActivity = event.value;
     this.changeVisualizationData();
@@ -77,11 +74,7 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
 
   changeVisualizationData(){
     let act = this.data.find(x => x.activity == this.currentActivity);
-    console.log("change visualization data");
-    console.log(act);
-    console.log(this.currentVisualization);
     this.visualizationData = ServiceAdapter.parseActiveTimeInformation(act.resources, this.currentVisualization);
-    console.log(this.visualizationData);
   }
 
   changeComponentState(state: ComponentState) {

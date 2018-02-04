@@ -12,4 +12,8 @@ export class DashboardService {
     return this.http.post("http://localhost:5000/active-time", parameters);
   }
 
+  requestTracesInformation(parameters) {
+    return this.http.post("http://localhost:5000/traces", parameters);
+  }
+
 }

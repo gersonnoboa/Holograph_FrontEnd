@@ -20,6 +20,7 @@ import { ActiveTimeService } from './active-time/active-time.service';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DashboardService } from './dashboard/dashboard.service';
+import { TracesService } from './traces/traces.service';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     FileUploadService,
     MiningService,
     ActiveTimeService,
-    DashboardService
+    DashboardService,
+    TracesService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MiningService } from '../mining/mining.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -10,6 +10,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class TracesComponent implements OnInit {
 
+  @Input("data") data: any;
+  
   formTraces: FormGroup;
   isLoading: boolean;
 

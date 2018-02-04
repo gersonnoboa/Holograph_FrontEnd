@@ -15,7 +15,16 @@
         <form [formGroup]="formActiveTime">
             <mat-horizontal-stepper [linear]="false">
                 <mat-step>
-                    <ng-template matStepLabel>Resource and activity</ng-template>
+                    <ng-template matStepLabel>General</ng-template>
+                    <p>
+                        <mat-form-field>
+                            <mat-select placeholder="Case ID field" formControlName="caseID">
+                                <mat-option *ngFor="let header of headers" [value]="header">
+                                    {{ header }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
                     <p>
                         <mat-form-field>
                             <mat-select placeholder="Resource field" formControlName="resource">
@@ -105,7 +114,7 @@
         </mat-tab>
         <mat-tab label="By trace">
             <div>
-                <app-traces></app-traces>
+                <app-traces [data]="data"></app-traces>
             </div>
         </mat-tab>
     </mat-tab-group>

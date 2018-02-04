@@ -31,25 +31,13 @@ export class DashboardComponent implements OnInit {
 
   headers: Array<String>;
 
-  view: any[] = [700, 400];
-
-  single = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    }
-  ];
-
   data: Array<any>;
 
-  constructor(private miningService: MiningService, private fb: FormBuilder, private activeTimeService: DashboardService) {
+  constructor(private miningService: MiningService, private fb: FormBuilder, private dashboardService: DashboardService) {
     this.changeComponentState(ComponentState.Loading);
 
     this.formActiveTime = fb.group({
+      "caseID": "",
       "resource": "",
       "activity": "",
       "type": LogType.ActiveTime,
@@ -83,7 +71,25 @@ export class DashboardComponent implements OnInit {
 
   onSubmitClicked() {
     this.changeComponentState(ComponentState.Loading);
-    this.activeTimeService.requestActiveTimeInformation(this.formActiveTime.value).subscribe(event => {
+    this.requestActiveTimeInformation();
+    this.requestTraceInformation();
+  }
+
+  requestTraceInformation() {
+    this.dashboardService.requestTracesInformation(this.formActiveTime.value).subscribe(event => {
+      console.log(event);
+    },
+      error => {
+        this.changeComponentState(ComponentState.AskingForFields);
+        if (error instanceof HttpErrorResponse) {
+          console.log(error.message);
+        }
+        this.showAlert();
+      });
+  }
+
+  requestActiveTimeInformation() {
+    this.dashboardService.requestActiveTimeInformation(this.formActiveTime.value).subscribe(event => {
       this.changeComponentState(ComponentState.ShowingActiveTime);
       this.showActiveTimeInformation(event);
     },
@@ -98,6 +104,7 @@ export class DashboardComponent implements OnInit {
 
   onSubmiTestClicked(){
     this.formActiveTime = this.fb.group({
+      "caseID": "Case ID",
       "resource": "Resource",
       "activity": "Activity",
       "type": LogType.StartAndEndDate,
@@ -155,7 +162,6 @@ export class DashboardComponent implements OnInit {
         this.parameterOneRequestPlaceholder = "Timestamp";
         break;
       default:
-        console.log("goes to default");
         break;
     }
 
