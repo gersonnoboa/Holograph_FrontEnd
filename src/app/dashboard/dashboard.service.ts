@@ -8,12 +8,25 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
+  requestFileHeaders(fileID: string): Observable<any> {
+    let params = {
+      "fileID": fileID
+    }
+    return this.http.get("http://localhost:5000/file-headers", {
+      params: params
+    });
+  }
+
   requestActiveTimeInformation(parameters) {
-    return this.http.post("http://localhost:5000/active-time", parameters);
+    return this.http.get("http://localhost:5000/active-time", {
+      params: parameters
+    });
   }
 
   requestTracesInformation(parameters) {
-    return this.http.post("http://localhost:5000/traces", parameters);
+    return this.http.get("http://localhost:5000/traces", {
+      params: parameters
+    });
   }
 
 }

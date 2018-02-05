@@ -25,11 +25,11 @@ export class TracesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    //this.getData();
   }
 
   getData() {
-    this.miningService.requestFileHeaders().subscribe(event => {
+    /*this.miningService.requestFileHeaders().subscribe(event => {
       if (event instanceof HttpResponse) {
         this.isLoading = false;
       }
@@ -42,6 +42,6 @@ export class TracesComponent implements OnInit {
       }
       
     });
-  }
+  }*/
 
 }

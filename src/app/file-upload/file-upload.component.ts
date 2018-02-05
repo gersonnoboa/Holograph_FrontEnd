@@ -55,8 +55,10 @@ export class FileUploadComponent {
         //console.log(Math.round(100 * event.loaded / event.total));
       } else if (event instanceof HttpResponse) {
         if (event.status == 200) {
+          let file = event.body.toString();
+          console.log(file);
           this.changeToState(UploadState.SuccessfulUpload);
-          this.redirectToActiveTime();
+          this.redirectToActiveTime(file);
         }
         else {
           this.changeToState(UploadState.UnsuccessfulUpload);
@@ -90,8 +92,8 @@ export class FileUploadComponent {
     }
   }
 
-  private redirectToActiveTime() {
-    this.router.navigateByUrl("/dashboard/active-time");
+  private redirectToActiveTime(file: string) {
+    this.router.navigate(['/dashboard', file]);
   }
 
   onFileChange(event){

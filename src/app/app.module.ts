@@ -23,7 +23,7 @@ import { DashboardService } from './dashboard/dashboard.service';
 import { TracesService } from './traces/traces.service';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard/:id', component: DashboardComponent },
   
   { path: 'home', component: FileUploadComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },

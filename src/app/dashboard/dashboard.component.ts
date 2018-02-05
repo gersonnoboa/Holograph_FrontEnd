@@ -7,6 +7,7 @@ import { LogType } from '../general/general';
 import { AlertState, AlertType } from '../general/alert-state';
 import { Utils } from '../general/utils';
 import { DashboardService } from './dashboard.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -32,11 +33,15 @@ export class DashboardComponent implements OnInit {
   headers: Array<String>;
 
   data: Array<any>;
+  fileID: string;
 
-  constructor(private miningService: MiningService, private fb: FormBuilder, private dashboardService: DashboardService) {
+  private sub: any;
+
+  constructor(private fb: FormBuilder, private dashboardService: DashboardService, private route: ActivatedRoute) {
     this.changeComponentState(ComponentState.Loading);
 
     this.formActiveTime = fb.group({
+      "fileID": "",
       "caseID": "",
       "resource": "",
       "activity": "",
@@ -47,30 +52,28 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+
+    this.sub = this.route.params.subscribe(params => {
+      this.fileID = params['id'];
+      this.getData();
+    });
+    
   }
 
   getData() {
-    this.miningService.requestFileHeaders().subscribe(event => {
-      if (event instanceof HttpResponse) {
-        this.changeComponentState(ComponentState.AskingForFields);
-        this.headers = event.body as Array<String>;
-        this.subscribeToLogTypeChanges();
-        this.showAppropriateParameters(LogType.ActiveTime);
-      }
-    },
-      error => {
-        this.changeComponentState(ComponentState.None);
-        if (error instanceof HttpErrorResponse) {
-          console.log(error.message);
-        }
-
-        this.showAlert();
-      });
+    this.dashboardService.requestFileHeaders(this.fileID).toPromise()
+    .then(response => {
+      this.changeComponentState(ComponentState.AskingForFields);
+      this.headers = response as Array<String>;
+      this.subscribeToLogTypeChanges();
+      this.showAppropriateParameters(LogType.ActiveTime);
+    })
+    .catch(console.log);
   }
 
   onSubmitClicked() {
     this.changeComponentState(ComponentState.Loading);
+    this.formActiveTime.patchValue({ "fileID": this.fileID });
     this.requestActiveTimeInformation();
     this.requestTraceInformation();
   }
@@ -104,6 +107,7 @@ export class DashboardComponent implements OnInit {
 
   onSubmiTestClicked(){
     this.formActiveTime = this.fb.group({
+      "fileID": "915d36c2-9500-4e9d-86a6-c106a2ac02db.csv",
       "caseID": "Case ID",
       "resource": "Resource",
       "activity": "Activity",
