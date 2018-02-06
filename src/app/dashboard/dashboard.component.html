@@ -12,97 +12,124 @@
     <div class="parameter-request" *ngIf="isAskingForFields">
         <button type="button" mat-raised-button color="primary" (click)="onSubmiTestClicked()">Submit Test</button>
         
-        <form [formGroup]="formActiveTime">
-            <mat-horizontal-stepper [linear]="false">
-                <mat-step>
-                    <ng-template matStepLabel>General</ng-template>
-                    <p>
-                        <mat-form-field>
-                            <mat-select placeholder="Case ID field" formControlName="caseID">
-                                <mat-option *ngFor="let header of headers" [value]="header">
-                                    {{ header }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </p>
-                    <p>
-                        <mat-form-field>
-                            <mat-select placeholder="Resource field" formControlName="resource">
-                                <mat-option *ngFor="let header of headers" [value]="header">
-                                    {{ header }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </p>
-                    <p>
-                        <mat-form-field>
-                            <mat-select placeholder="Activity field" formControlName="activity">
-                            <mat-option *ngFor="let header of headers" [value]="header">
-                                {{ header }}
-                            </mat-option>
-                        </mat-select>
-                        </mat-form-field>
-                    </p>
-                    <div class="navigation-buttons">
-                        <button type="button" mat-raised-button matStepperNext>Next</button>
-                    </div>
-                </mat-step>
-                <mat-step>
-                    <ng-template matStepLabel>Type</ng-template>
-                    <p>Select the type of log, in order to determine the best way of calculating active time.</p>
-                    <p>
-                        <mat-radio-group class="example-radio-group" formControlName="type">
-                            <mat-radio-button *ngFor="let choice of typeChoices" name="type" [value]="choice">
-                                {{ choice }}
-                            </mat-radio-button>
-                        </mat-radio-group>
-                    </p>
-                    <div class="navigation-buttons">
-                        <button type="button" mat-raised-button matStepperPrevious>Back</button>
-                        <button type="button" mat-raised-button matStepperNext>Next</button>
-                    </div>
-                </mat-step>
-                <mat-step>
-                    <ng-template matStepLabel>Time params</ng-template>
-                    <p>
-                        <mat-form-field>
-                            <mat-select placeholder="{{ parameterOneRequestPlaceholder }}" formControlName="parameterOne">
-                                <mat-option *ngFor="let header of headers" [value]="header">
-                                    {{ header }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </p>
-    
-                    <div *ngIf="shouldShowParameterTwo">
+        <mat-card>
+            <mat-card-title>Parameters</mat-card-title>
+            <mat-card-content>
+                Please fill the information. For your convenience, the first row of the file you uploaded is shown below.
+            </mat-card-content>
+
+            <div class="table">
+                <table>
+                    <tr>
+                        <th *ngFor="let header of headers">{{ header }}</th>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let col of firstLine">{{ col }}</td>
+                    </tr>
+                </table>
+            </div>
+        </mat-card>
+
+        <div>
+            <form [formGroup]="formActiveTime">
+                <mat-horizontal-stepper [linear]="false">
+                    <mat-step>
+                        <ng-template matStepLabel>General</ng-template>
                         <p>
                             <mat-form-field>
-                                <mat-select placeholder="{{ parameterTwoRequestPlaceholder }}" formControlName="parameterTwo">
+                                <mat-select placeholder="Case ID field" formControlName="caseID">
                                     <mat-option *ngFor="let header of headers" [value]="header">
                                         {{ header }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </p>
-                    </div>
-    
-                    <div class="navigation-buttons">
-                        <button type="button" mat-raised-button matStepperPrevious>Back</button>
-                        <button type="button" mat-raised-button matStepperNext>Next</button>
-                    </div>
-                </mat-step>
-                <mat-step>
-                    <ng-template matStepLabel>Done</ng-template>
-                    <p>You are done. Please press Submit to send the information.</p>
-                    <p>
-                        <button type="button" mat-raised-button color="primary" (click)="onSubmitClicked()">Submit</button>
-                    </p>
-                    <div class="navigation-buttons">
-                        <button type="button" mat-raised-button matStepperPrevious>Back</button>
-                    </div>
-                </mat-step>
-            </mat-horizontal-stepper>
-        </form>
+                        <p>
+                            <mat-form-field>
+                                <mat-select placeholder="Resource field" formControlName="resource">
+                                    <mat-option *ngFor="let header of headers" [value]="header">
+                                        {{ header }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field>
+                                <mat-select placeholder="Activity field" formControlName="activity">
+                                    <mat-option *ngFor="let header of headers" [value]="header">
+                                        {{ header }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+            
+                        <p>
+                            <mat-form-field>
+                                <input matInput placeholder="Date time format" formControlName="dateTimeFormat">
+                            </mat-form-field>
+                        </p>
+                        <div class="navigation-buttons">
+                            <button type="button" mat-raised-button matStepperNext>Next</button>
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Type</ng-template>
+                        <p>Select the type of log, in order to determine the best way of calculating active time.</p>
+                        <p>
+                            <mat-radio-group class="example-radio-group" formControlName="type">
+                                <mat-radio-button *ngFor="let choice of typeChoices" name="type" [value]="choice">
+                                    {{ choice }}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </p>
+                        <div class="navigation-buttons">
+                            <button type="button" mat-raised-button matStepperPrevious>Back</button>
+                            <button type="button" mat-raised-button matStepperNext>Next</button>
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Time params</ng-template>
+                        <p>
+                            <mat-form-field>
+                                <mat-select placeholder="{{ parameterOneRequestPlaceholder }}" formControlName="parameterOne">
+                                    <mat-option *ngFor="let header of headers" [value]="header">
+                                        {{ header }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+            
+                        <div *ngIf="shouldShowParameterTwo">
+                            <p>
+                                <mat-form-field>
+                                    <mat-select placeholder="{{ parameterTwoRequestPlaceholder }}" formControlName="parameterTwo">
+                                        <mat-option *ngFor="let header of headers" [value]="header">
+                                            {{ header }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </p>
+                        </div>
+            
+                        <div class="navigation-buttons">
+                            <button type="button" mat-raised-button matStepperPrevious>Back</button>
+                            <button type="button" mat-raised-button matStepperNext>Next</button>
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p>You are done. Please press Submit to send the information.</p>
+                        <p>
+                            <button type="button" mat-raised-button color="primary" (click)="onSubmitClicked()">Submit</button>
+                        </p>
+                        <div class="navigation-buttons">
+                            <button type="button" mat-raised-button matStepperPrevious>Back</button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+        
     
     </div>
     
