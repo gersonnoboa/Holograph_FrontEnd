@@ -41,7 +41,7 @@ export class TracesComponent implements OnInit {
         console.log(error.message);
       }
       
-    });
-  }*/
+    });*/
+  }
 
 }
