@@ -10,7 +10,7 @@
     <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
     
     <div class="parameter-request" *ngIf="isAskingForFields">
-        <button type="button" mat-raised-button color="primary" (click)="onSubmiTestClicked()">Submit Test</button>
+        <!-- <button type="button" mat-raised-button color="primary" (click)="onSubmiTestClicked()">Submit Test</button> -->
         
         <mat-card>
             <mat-card-title>Parameters</mat-card-title>
@@ -32,7 +32,7 @@
 
         <div>
             <form [formGroup]="formActiveTime">
-                <mat-horizontal-stepper [linear]="false">
+                <mat-horizontal-stepper [linear]="false" class="mat-elevation-z3">
                     <mat-step>
                         <ng-template matStepLabel>General</ng-template>
                         <p>
@@ -113,17 +113,7 @@
             
                         <div class="navigation-buttons">
                             <button type="button" mat-raised-button matStepperPrevious>Back</button>
-                            <button type="button" mat-raised-button matStepperNext>Next</button>
-                        </div>
-                    </mat-step>
-                    <mat-step>
-                        <ng-template matStepLabel>Done</ng-template>
-                        <p>You are done. Please press Submit to send the information.</p>
-                        <p>
                             <button type="button" mat-raised-button color="primary" (click)="onSubmitClicked()">Submit</button>
-                        </p>
-                        <div class="navigation-buttons">
-                            <button type="button" mat-raised-button matStepperPrevious>Back</button>
                         </div>
                     </mat-step>
                 </mat-horizontal-stepper>
