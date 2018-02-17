@@ -33,8 +33,9 @@ export class DashboardComponent implements OnInit {
   headers: Array<String>;
   firstLine: Array<String>;
 
-  data: Array<any>;
-  
+  activeTimeData: Array<any>;
+  tracesData: Array<any>;
+
   fileID: string;
 
   private sub: any;
@@ -84,14 +85,15 @@ export class DashboardComponent implements OnInit {
 
   requestTraceInformation() {
     this.dashboardService.requestTracesInformation(this.formActiveTime.value).subscribe(event => {
-      console.log(event);
+      this.changeComponentState(ComponentState.ShowingActiveTime);
+      this.showTracesInformation(event);
     },
       error => {
-        this.changeComponentState(ComponentState.AskingForFields);
+        /*this.changeComponentState(ComponentState.AskingForFields);
         if (error instanceof HttpErrorResponse) {
           console.log(error.message);
         }
-        this.showAlert();
+        this.showAlert();*/
       });
   }
 
@@ -110,31 +112,34 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmiTestClicked(){
-    // this.formActiveTime = this.fb.group({
-    //   "fileID": "915d36c2-9500-4e9d-86a6-c106a2ac02db.csv",
-    //   "caseID": "Case ID",
-    //   "resource": "Resource",
-    //   "activity": "Activity",
-    //   "type": LogType.StartAndEndDate,
-    //   "parameterOne": "StartTime",
-    //   "parameterTwo": "EndTime"
-    // });
     this.formActiveTime = this.fb.group({
-      "fileID": "18b9dee2-a0b6-4d4c-a3bf-1f512f3a18ab.csv",
+      "fileID": "915d36c2-9500-4e9d-86a6-c106a2ac02db.csv",
       "caseID": "Case ID",
       "resource": "Resource",
       "activity": "Activity",
       "type": LogType.StartAndEndDate,
-      "parameterOne": "Start Date",
-      "parameterTwo": "End Date",
-      "dateTimeFormat": "dd.MM.yy HH:mm"
+      "parameterOne": "StartTime",
+      "parameterTwo": "EndTime"
     });
+    // this.formActiveTime = this.fb.group({
+    //   "fileID": "18b9dee2-a0b6-4d4c-a3bf-1f512f3a18ab.csv",
+    //   "caseID": "Case ID",
+    //   "resource": "Resource",
+    //   "activity": "Activity",
+    //   "type": LogType.StartAndEndDate,
+    //   "parameterOne": "Start Date",
+    //   "parameterTwo": "End Date",
+    //   "dateTimeFormat": "dd.MM.yy HH:mm"
+    // });
     this.onSubmitClicked();
   }
 
   showActiveTimeInformation(information: any) {
-    let activities = Utils.selectFromArray(information, "activity");
-    this.data = information;
+    this.activeTimeData = information;
+  }
+
+  showTracesInformation(information: any) {
+    this.tracesData = information;
   }
 
   subscribeToLogTypeChanges() {

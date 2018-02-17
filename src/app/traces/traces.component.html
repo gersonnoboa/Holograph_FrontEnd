@@ -1,51 +1,81 @@
-<mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
+<div>
+    <mat-card>
+        <mat-card-title>Variant</mat-card-title>
+        <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>
+        <mat-form-field>
+            <mat-select placeholder="Variant" [value]="currentVariant" (change)="onVariantChange($event)">
+                <mat-option *ngFor="let variant of variants" [value]="variant.value">
+                    {{ variant.text }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-card>
 
-<div class="parameter-request" *ngIf="!isLoading">
-
-    <form [formGroup]="formTraces">
-        <mat-horizontal-stepper [linear]="true">
-            <mat-step>
-                <ng-template matStepLabel>Resource field</ng-template>
-                Select the parameter that represents the resources.
-                <div>
-                    <mat-form-field>
-                        <mat-select placeholder="Resource field" formControlName="resource">
-                            <mat-option *ngFor="let header of headers" [value]="header">
-                                {{ header }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="navigation-buttons">
-                    <button mat-raised-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Case ID field</ng-template>
-                Select the parameter that represents the case ID.
-                <div>
-                    <mat-select placeholder="Case ID field" formControlName="caseID">
-                        <mat-option *ngFor="let header of headers" [value]="header">
-                            {{ header }}
-                        </mat-option>
-                    </mat-select>
-                </div>
-                <div class="navigation-buttons">
-                    <button mat-raised-button matStepperPrevious>Back</button>
-                    <button mat-raised-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Done</ng-template>
-                You are done. Please press Submit to send the information.
-                <div>
-                    <button mat-raised-button color="primary">Submit</button>
-                </div>
-                <div class="navigation-buttons">
-                    <button mat-raised-button matStepperPrevious>Back</button>
-                </div>
-            </mat-step>
-        </mat-horizontal-stepper>
-    </form>
-    
+    <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile class="resource" *ngFor="let resource of specificResourcesInformation; let even = even; let odd = odd">
+                <mat-card class="resource" [ngClass]="{ odd: odd, even: even }">
+                    <mat-card-title>{{ resource.name }}</mat-card-title>
+                    <p>
+                        <mat-grid-list cols="2" rowHeight="30px">
+                            <mat-grid-tile>
+                                <span class="description">Average Time With</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <span class="text">{{ resource.averageTimeWith }} s</span>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </p>
+                    <p>
+                        <mat-grid-list cols="2" rowHeight="30px">
+                            <mat-grid-tile>
+                                <span class="description">Average Time Without</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <span class="text">{{ resource.averageTimeWithout }} s</span>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </p>
+                    <p>
+                        <mat-grid-list cols="2" rowHeight="30px">
+                            <mat-grid-tile>
+                                <span class="description">Maximum Time With</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <span class="text">{{ resource.maximumTimeWith }} s</span>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </p>
+                    <p>
+                        <mat-grid-list cols="2" rowHeight="30px">
+                            <mat-grid-tile>
+                                <span class="description">Maximum Time Without</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <span class="text">{{ resource.maximumTimeWithout }} s</span>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </p>
+                    <p>
+                        <mat-grid-list cols="2" rowHeight="30px">
+                            <mat-grid-tile>
+                                <span class="description">Minimum Time With</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <span class="text">{{ resource.minimumTimeWith }} s</span>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </p>
+                    <p>
+                        <mat-grid-list cols="2" rowHeight="30px">
+                            <mat-grid-tile>
+                                <span class="description">Minimum Time Without</span>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <span class="text">{{ resource.minimumTimeWithout }} s</span>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </p>
+                </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>    
 </div>
