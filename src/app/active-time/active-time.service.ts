@@ -9,6 +9,8 @@ export class ActiveTimeService {
   constructor(private http: HttpClient) { }
 
   requestActiveTimeInformation(parameters) {
-    return this.http.post("http://localhost:5000/active-time", parameters);
+    return this.http.get("http://localhost:5000/active-time", {
+      params: parameters
+    });
   }
 }

@@ -17,14 +17,8 @@ export class DashboardService {
     });
   }
 
-  requestActiveTimeInformation(parameters) {
-    return this.http.get("http://localhost:5000/active-time", {
-      params: parameters
-    });
-  }
-
-  requestTracesInformation(parameters) {
-    return this.http.get("http://localhost:5000/traces", {
+  requestFlowInformation(parameters) {
+    return this.http.get("http://localhost:5000/flows", {
       params: parameters
     });
   }

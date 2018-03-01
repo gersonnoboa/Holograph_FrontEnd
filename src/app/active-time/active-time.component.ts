@@ -3,6 +3,7 @@ import { ActiveTimeService } from './active-time.service';
 import { AlertState, AlertType } from '../general/alert-state';
 import { Utils } from '../general/utils';
 import { ServiceAdapter, ActiveTimeVisualizationType } from '../general/service-adapter';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-active-time',
@@ -17,7 +18,8 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   private ChartType = ChartType;
   private chartTypeChoices = Object.values(ChartType).filter(e => typeof (e) == "string");
 
-  @Input("data") data: any;
+  @Input("parameters") parameters: any;
+  data: any;
   differ: any;
    
   isAskingForActivity: boolean = false;
@@ -40,10 +42,23 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
     this.differ = this.differs.find({}).create();
   }
 
-  ngDoCheck() {
-    var changes = this.differ.diff(this.data);
-    if (changes) {
+  requestActiveTimeInformation() {
+    this.activeTimeService.requestActiveTimeInformation(this.parameters).subscribe(event => {
+      this.data = event;
       this.getActivityInformation();
+    },
+      error => {
+        if (error instanceof HttpErrorResponse) {
+          console.log(error.message);
+        }
+        this.showAlert();
+      });
+  }
+
+  ngDoCheck() {
+    var changes = this.differ.diff(this.parameters);
+    if (changes) {
+      this.requestActiveTimeInformation();
     }
   }
 

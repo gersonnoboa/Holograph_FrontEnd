@@ -4,6 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Utils } from '../general/utils';
 import { ServiceAdapter } from '../general/service-adapter';
+import { TracesService } from './traces.service';
 
 @Component({
   selector: 'app-traces',
@@ -12,8 +13,8 @@ import { ServiceAdapter } from '../general/service-adapter';
 })
 export class TracesComponent implements OnInit {
 
-  @Input("data") data: any;
-  
+  @Input("parameters") parameters: any;
+  data: any;
   differ: any;
 
   variants: Array<VariantSelectInfo>;
@@ -26,17 +27,31 @@ export class TracesComponent implements OnInit {
   specificResourcesInformation: Array<SpecificResourceInformation>;
   factsInformation: Array<Fact>;
 
-  constructor(private differs: KeyValueDiffers) { 
+  constructor(private tracesService: TracesService, private differs: KeyValueDiffers) { 
   }
 
   ngOnInit() {
     this.differ = this.differs.find({}).create();
   }
 
-  ngDoCheck() {
-    var changes = this.differ.diff(this.data);
-    if (changes) {
+  requestTraceInformation() {
+    this.tracesService.requestTracesInformation(this.parameters).subscribe(event => {
+      this.data = event;
       this.getActivityInformation();
+    },
+      error => {
+        /*this.changeComponentState(ComponentState.AskingForFields);
+        if (error instanceof HttpErrorResponse) {
+          console.log(error.message);
+        }
+        this.showAlert();*/
+      });
+  }
+
+  ngDoCheck() {
+    var changes = this.differ.diff(this.parameters);
+    if (changes) {
+      this.requestTraceInformation();
     }
   }
 

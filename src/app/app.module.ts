@@ -21,6 +21,7 @@ import { ActiveTimeService } from './active-time/active-time.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DashboardService } from './dashboard/dashboard.service';
 import { TracesService } from './traces/traces.service';
+import { FlowsComponent } from './flows/flows.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard/:id', component: DashboardComponent },
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     PageNotFoundComponent,
     ActiveTimeComponent,
-    TracesComponent
+    TracesComponent,
+    FlowsComponent
   ],
   imports: [
     BrowserModule,

@@ -33,10 +33,9 @@ export class DashboardComponent implements OnInit {
   headers: Array<String>;
   firstLine: Array<String>;
 
-  activeTimeData: Array<any>;
-  tracesData: Array<any>;
-
   fileID: string;
+
+  parameters: any;
 
   private sub: any;
 
@@ -79,36 +78,8 @@ export class DashboardComponent implements OnInit {
   onSubmitClicked() {
     this.changeComponentState(ComponentState.Loading);
     this.formActiveTime.patchValue({ "fileID": this.fileID });
-    this.requestActiveTimeInformation();
-    this.requestTraceInformation();
-  }
-
-  requestTraceInformation() {
-    this.dashboardService.requestTracesInformation(this.formActiveTime.value).subscribe(event => {
-      this.changeComponentState(ComponentState.ShowingActiveTime);
-      this.showTracesInformation(event);
-    },
-      error => {
-        /*this.changeComponentState(ComponentState.AskingForFields);
-        if (error instanceof HttpErrorResponse) {
-          console.log(error.message);
-        }
-        this.showAlert();*/
-      });
-  }
-
-  requestActiveTimeInformation() {
-    this.dashboardService.requestActiveTimeInformation(this.formActiveTime.value).subscribe(event => {
-      this.changeComponentState(ComponentState.ShowingActiveTime);
-      this.showActiveTimeInformation(event);
-    },
-      error => {
-        this.changeComponentState(ComponentState.AskingForFields);
-        if (error instanceof HttpErrorResponse) {
-          console.log(error.message);
-        }
-        this.showAlert();
-      });
+    this.changeComponentState(ComponentState.ShowingActiveTime);
+    this.parameters = this.formActiveTime.value;
   }
 
   onSubmiTestClicked(){
@@ -132,14 +103,6 @@ export class DashboardComponent implements OnInit {
       "dateTimeFormat": "dd.MM.yy HH:mm"
     });
     this.onSubmitClicked();
-  }
-
-  showActiveTimeInformation(information: any) {
-    this.activeTimeData = information;
-  }
-
-  showTracesInformation(information: any) {
-    this.tracesData = information;
   }
 
   subscribeToLogTypeChanges() {

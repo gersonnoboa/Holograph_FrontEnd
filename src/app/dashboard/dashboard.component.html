@@ -126,12 +126,17 @@
     <mat-tab-group *ngIf="isShowingInformation">
         <mat-tab label="By active time">
             <div>
-                <app-active-time [data]="activeTimeData"></app-active-time>
+                <app-active-time [parameters]="parameters"></app-active-time>
             </div>
         </mat-tab>
         <mat-tab label="By variant">
             <div>
-                <app-traces [data]="tracesData"></app-traces>
+                <app-traces [parameters]="parameters"></app-traces>
+            </div>
+        </mat-tab>
+        <mat-tab label="By flow">
+            <div>
+                <!-- <app-flows [data]="flowData"></app-flows> -->
             </div>
         </mat-tab>
     </mat-tab-group>
