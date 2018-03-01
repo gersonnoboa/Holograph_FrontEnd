@@ -34,6 +34,13 @@ export class TracesComponent implements OnInit {
     this.differ = this.differs.find({}).create();
   }
 
+  ngDoCheck() {
+    var changes = this.differ.diff(this.parameters);
+    if (changes) {
+      this.requestTraceInformation();
+    }
+  }
+
   requestTraceInformation() {
     this.tracesService.requestTracesInformation(this.parameters).subscribe(event => {
       this.data = event;
@@ -46,13 +53,6 @@ export class TracesComponent implements OnInit {
         }
         this.showAlert();*/
       });
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestTraceInformation();
-    }
   }
 
   getActivityInformation() {

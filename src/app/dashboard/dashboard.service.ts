@@ -17,10 +17,4 @@ export class DashboardService {
     });
   }
 
-  requestFlowInformation(parameters) {
-    return this.http.get("http://localhost:5000/flows", {
-      params: parameters
-    });
-  }
-
 }

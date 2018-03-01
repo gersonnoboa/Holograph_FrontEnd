@@ -42,6 +42,13 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
     this.differ = this.differs.find({}).create();
   }
 
+  ngDoCheck() {
+    var changes = this.differ.diff(this.parameters);
+    if (changes) {
+      this.requestActiveTimeInformation();
+    }
+  }
+
   requestActiveTimeInformation() {
     this.activeTimeService.requestActiveTimeInformation(this.parameters).subscribe(event => {
       this.data = event;
@@ -53,13 +60,6 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
         }
         this.showAlert();
       });
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestActiveTimeInformation();
-    }
   }
 
   getActivityInformation(){
