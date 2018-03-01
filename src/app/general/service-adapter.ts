@@ -21,6 +21,15 @@ export class ServiceAdapter {
 
         return newInfo;
     }
+
+    static parseTraceInformation(information) {
+        let info = {
+            "name": information.name,
+            "value": information.averageTimeWith
+        };
+
+        return info;
+    }
 }
 
 export enum ActiveTimeVisualizationType {

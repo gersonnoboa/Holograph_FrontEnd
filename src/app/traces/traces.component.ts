@@ -3,6 +3,7 @@ import { MiningService } from '../mining/mining.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Utils } from '../general/utils';
+import { ServiceAdapter } from '../general/service-adapter';
 
 @Component({
   selector: 'app-traces',
@@ -18,8 +19,12 @@ export class TracesComponent implements OnInit {
   variants: Array<VariantSelectInfo>;
   currentVariant: number;
   textVariant = "None";
+  chartData = [];
+  view = [600, 400];
+  maxChartData: number = 100;
 
   specificResourcesInformation: Array<SpecificResourceInformation>;
+  factsInformation: Array<Fact>;
 
   constructor(private differs: KeyValueDiffers) { 
   }
@@ -78,11 +83,30 @@ export class TracesComponent implements OnInit {
 
     this.textVariant = temporalTextVariant;
     this.getResourceInformation(variant);
+    this.getFactInformation(variant);
+  }
+
+  getFactInformation(variant) {
+    let temporalFactInformation = [];
+    let factInformation = variant["facts"];
+
+    factInformation.forEach(element => {
+      let fact = new Fact();
+      fact.name = element["name"];
+      fact.value = element["value"];
+      fact.elements = this.formatElements(element["elements"]);
+      temporalFactInformation.push(fact);
+    });
+
+    this.factsInformation = temporalFactInformation;
   }
 
   getResourceInformation(variant) {
     let resourceInformation = variant["resources"];
     let temporalResourceInformation = [];
+
+    let temporalChartData = [];
+
     resourceInformation.forEach(element => {
       let info = new SpecificResourceInformation();
       info.name = element["name"];
@@ -93,9 +117,43 @@ export class TracesComponent implements OnInit {
       info.averageTimeWith = element["average_time_with"];
       info.averageTimeWithout = element["average_time_without"];
       temporalResourceInformation.push(info);
-    });
 
+      temporalChartData.push(ServiceAdapter.parseTraceInformation(info));
+    }); 
+    this.chartData = temporalChartData;
     this.specificResourcesInformation = temporalResourceInformation;
+    this.maxChartData = this.getMaxValue(this.chartData);
+  }
+
+  getMaxValue(data) {
+    return Math.max.apply(Math, data.map(function (o) { return o.value ; }))
+  }
+
+  formatElements(elements: Array<string>) {
+    let returningString = "";
+
+    if (elements.length == 0) {
+      returningString = "None";
+    }
+    if (elements.length == 1) {
+      returningString = elements[0];
+    }
+    else {
+      for (let index = 0; index < elements.length; index++) {
+        const element = elements[index];
+        if (index == 0) {
+          returningString += element;
+        }
+        else if (index == elements.length - 1) {
+          returningString += " and " + element;
+        }
+        else {
+          returningString += ", " + element;
+        }
+      }
+    }
+
+    return returningString;
   }
 
   getData() {
@@ -140,4 +198,16 @@ class SpecificResourceInformation {
   maximumTimeWithout: number;
   minimumTimeWith: number;
   minimumTimeWithout: number;
+}
+
+class Fact {
+  elements: string;
+  name: string;
+  value: number;
+
+  /*constructor(name: string, value: number, elements: Array<string>){
+    this.name = name;
+    this.value = value;
+    this.elements = elements;
+  }*/
 }

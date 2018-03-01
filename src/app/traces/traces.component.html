@@ -11,6 +11,29 @@
         </mat-form-field>
     </mat-card>
 
+    <div class="chart">
+        <ngx-charts-gauge [results]="chartData" [min]="0" [max]="maxChartData" [angleSpan]="240" [startAngle]="-120" [units]="'seconds'"
+            [bigSegments]="10" [smallSegments]="5">
+        </ngx-charts-gauge>
+    </div>
+    
+    <mat-card>
+        <mat-card-title>Facts about variant</mat-card-title>
+        <mat-card-content>
+            <mat-grid-list cols="2" rowHeight="100px">
+                <mat-grid-tile class="facts" *ngFor="let fact of factsInformation">
+                    <div style="width: 100%; text-align:center;">
+                        <p><span class="fact-name">{{ fact.name }}</span></p>
+                        <p>
+                            <span class="fact-value">{{ fact.value | number : '1.2-2' }} s</span>
+                            <span> executed by {{ fact.elements }}</span>
+                        </p>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+    </mat-card>
+ 
     <mat-grid-list cols="2" rowHeight="350px">
         <mat-grid-tile class="resource" *ngFor="let resource of specificResourcesInformation; let even = even; let odd = odd">
                 <mat-card class="resource" [ngClass]="{ odd: odd, even: even }">
@@ -21,7 +44,7 @@
                                 <span class="description">Average Time With</span>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <span class="text">{{ resource.averageTimeWith }} s</span>
+                                <span class="text">{{ resource.averageTimeWith | number : '1.2-2' }} s</span>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </p>
@@ -31,7 +54,7 @@
                                 <span class="description">Average Time Without</span>
                             </mat-grid-tile>
                             <mat-grid-tile>
-                                <span class="text">{{ resource.averageTimeWithout }} s</span>
+                                <span class="text">{{ resource.averageTimeWithout | number : '1.2-2' }} s</span>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </p>
@@ -78,4 +101,5 @@
                 </mat-card>
         </mat-grid-tile>
     </mat-grid-list>    
+
 </div>

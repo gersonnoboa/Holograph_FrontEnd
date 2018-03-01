@@ -112,25 +112,25 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmiTestClicked(){
-    this.formActiveTime = this.fb.group({
-      "fileID": "915d36c2-9500-4e9d-86a6-c106a2ac02db.csv",
-      "caseID": "Case ID",
-      "resource": "Resource",
-      "activity": "Activity",
-      "type": LogType.StartAndEndDate,
-      "parameterOne": "StartTime",
-      "parameterTwo": "EndTime"
-    });
     // this.formActiveTime = this.fb.group({
-    //   "fileID": "18b9dee2-a0b6-4d4c-a3bf-1f512f3a18ab.csv",
+    //   "fileID": "915d36c2-9500-4e9d-86a6-c106a2ac02db.csv",
     //   "caseID": "Case ID",
     //   "resource": "Resource",
     //   "activity": "Activity",
     //   "type": LogType.StartAndEndDate,
-    //   "parameterOne": "Start Date",
-    //   "parameterTwo": "End Date",
-    //   "dateTimeFormat": "dd.MM.yy HH:mm"
+    //   "parameterOne": "StartTime",
+    //   "parameterTwo": "EndTime"
     // });
+    this.formActiveTime = this.fb.group({
+      "fileID": "18b9dee2-a0b6-4d4c-a3bf-1f512f3a18ab.csv",
+      "caseID": "Case ID",
+      "resource": "Resource",
+      "activity": "Activity",
+      "type": LogType.StartAndEndDate,
+      "parameterOne": "Start Date",
+      "parameterTwo": "End Date",
+      "dateTimeFormat": "dd.MM.yy HH:mm"
+    });
     this.onSubmitClicked();
   }
 
