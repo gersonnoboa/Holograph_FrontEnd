@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Utils } from '../general/utils';
 import { ServiceAdapter } from '../general/service-adapter';
 import { TracesService } from './traces.service';
+import { VariantSelectInfo } from '../general/general';
 
 @Component({
   selector: 'app-traces',
@@ -57,22 +58,7 @@ export class TracesComponent implements OnInit {
 
   getActivityInformation() {
     this.data = this.data as Array<any>;
-
-    let temporalVariants = [];
-
-    let activityList = Utils.selectFromArray(this.data, "activity_list");
-
-    for (let index = 0; index < activityList.length; index++) {
-      let variantNumber = index + 1;
-      let activitiesCount = activityList.length;
-      let activitiesText = activitiesCount == 1 ? "activity" : "activities";
-      let text = `Variant ${variantNumber} (${activitiesCount} ${activitiesText})`;
-
-      let info = new VariantSelectInfo(index, text);
-      temporalVariants.push(info);
-    }
-
-    this.variants = temporalVariants;
+    this.variants = Utils.getVariantInfoForSelect(this.data);
 
     if (this.variants.length > 0) {
       this.currentVariant = this.variants[0].value;
@@ -187,16 +173,6 @@ export class TracesComponent implements OnInit {
     });*/
   }
 
-}
-
-class VariantSelectInfo {
-  value: number;
-  text: string;
-
-  constructor(value: number, text: string) {
-    this.value = value;
-    this.text = text;
-  }
 }
 
 class TotalResourceInformation {

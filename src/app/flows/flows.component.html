@@ -1,3 +1,13 @@
-<p>
-  flows works!
-</p>
+<div>
+  <mat-card>
+    <mat-card-title>Variant</mat-card-title>
+    <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>
+    <mat-form-field>
+      <mat-select placeholder="Variant" [value]="currentVariant" (change)="onVariantChange($event)">
+        <mat-option *ngFor="let variant of variants" [value]="variant.value">
+          {{ variant.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
+</div>

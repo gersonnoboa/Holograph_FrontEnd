@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, KeyValueDiffers } from '@angular/core';
 import { FlowsService } from './flows.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Utils } from '../general/utils';
+import { VariantSelectInfo } from '../general/general';
 
 @Component({
   selector: 'app-flows',
@@ -12,6 +14,9 @@ export class FlowsComponent implements OnInit {
   @Input("parameters") parameters: any;
   differ: any;
   data: any;
+  variants: any;
+  currentVariant: any;
+  textVariant = "None";
 
   constructor(private flowsService: FlowsService, private differs: KeyValueDiffers) { 
 
@@ -44,7 +49,17 @@ export class FlowsComponent implements OnInit {
 
   getFlowsInformation() {
     this.data = this.data as Array<any>;
-    console.log(this.data);
+
+    this.variants = Utils.getVariantInfoForSelect(this.data);;
+
+    if (this.variants.length > 0) {
+      this.currentVariant = this.variants[0].value;
+      this.changeVisualizationData();
+    }
+  }
+
+  changeVisualizationData(){
+
   }
 
 }
