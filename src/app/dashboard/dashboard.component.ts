@@ -64,15 +64,19 @@ export class DashboardComponent implements OnInit {
   }
 
   getData() {
-    this.dashboardService.requestFileHeaders(this.fileID).toPromise()
-    .then(response => {
+    console.log("start getting data");
+    this.dashboardService.requestFileHeaders(this.fileID).subscribe(response => {
+      console.log("got file headers");
       this.changeComponentState(ComponentState.AskingForFields);
       this.headers = (response as Array<Array<String>>)[0];
       this.firstLine = (response as Array<Array<String>>)[1];
       this.subscribeToLogTypeChanges();
       this.showAppropriateParameters(LogType.ActiveTime);
-    })
-    .catch(console.log);
+    }, error => {
+      if (error instanceof HttpErrorResponse) {
+        console.log(error.message);
+      }
+    });
   }
 
   onSubmitClicked() {
@@ -107,6 +111,7 @@ export class DashboardComponent implements OnInit {
 
   subscribeToLogTypeChanges() {
     this.formActiveTime.get("type").valueChanges.subscribe((value) => {
+      console.log("will show appropriate parameters");
       this.showAppropriateParameters(value);
     });
   }
