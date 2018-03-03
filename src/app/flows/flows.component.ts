@@ -17,6 +17,7 @@ export class FlowsComponent implements OnInit {
   variants: any;
   currentVariant: any;
   textVariant = "None";
+  isLoading = true;
 
   constructor(private flowsService: FlowsService, private differs: KeyValueDiffers) { 
 
@@ -37,6 +38,7 @@ export class FlowsComponent implements OnInit {
     console.log("flow information");
 
     this.flowsService.requestFlowInformation(this.parameters).subscribe(event => {
+      this.isLoading = false;
       this.data = event;
       this.getFlowsInformation();
     }, error => {

@@ -34,6 +34,8 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   currentVisualization = ActiveTimeVisualizationType.Average;
   currentChartType = ChartType.Bar;
 
+  isLoading = true;
+
   constructor(private activeTimeService: ActiveTimeService, private differs: KeyValueDiffers) { 
     
   }
@@ -51,6 +53,7 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
 
   requestActiveTimeInformation() {
     this.activeTimeService.requestActiveTimeInformation(this.parameters).subscribe(event => {
+      this.isLoading = false;
       this.data = event;
       this.getActivityInformation();
     },

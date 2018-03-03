@@ -1,5 +1,7 @@
-<div>
-
+<div *ngIf="isLoading" class="spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="!isLoading">
     <div>
         <mat-card>
             <mat-grid-list cols="3" rowHeight="60px">

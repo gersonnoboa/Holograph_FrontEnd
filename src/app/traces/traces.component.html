@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="isLoading" class="spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="!isLoading">
     <mat-card>
         <mat-card-title>Variant</mat-card-title>
         <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>

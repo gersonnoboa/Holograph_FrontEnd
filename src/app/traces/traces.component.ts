@@ -27,6 +27,7 @@ export class TracesComponent implements OnInit {
 
   specificResourcesInformation: Array<SpecificResourceInformation>;
   factsInformation: Array<Fact>;
+  isLoading = true;
 
   constructor(private tracesService: TracesService, private differs: KeyValueDiffers) { 
   }
@@ -44,6 +45,7 @@ export class TracesComponent implements OnInit {
 
   requestTraceInformation() {
     this.tracesService.requestTracesInformation(this.parameters).subscribe(event => {
+      this.isLoading = false;
       this.data = event;
       this.getActivityInformation();
     },

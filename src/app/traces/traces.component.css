@@ -68,3 +68,7 @@ span.fact-value {
   margin: 0 auto;
   height: 400px;
 }
+
+.spinner {
+  padding: 20px;
+}
