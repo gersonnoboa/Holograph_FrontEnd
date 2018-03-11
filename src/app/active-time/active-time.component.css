@@ -7,9 +7,9 @@ mat-select {
 }
 
 .chart {
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
-  height: 400px;
+  height: 600px;
 }
 
 .spinner {

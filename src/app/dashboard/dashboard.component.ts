@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MiningService } from '../mining/mining.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HttpEventType } from '@angular/common/http/src/response';
@@ -8,6 +8,7 @@ import { AlertState, AlertType } from '../general/alert-state';
 import { Utils } from '../general/utils';
 import { DashboardService } from './dashboard.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 
 @Component({
@@ -38,6 +39,12 @@ export class DashboardComponent implements OnInit {
   parameters: any;
 
   private sub: any;
+
+  isActive1 = false;
+  isActive2 = false;
+  isActive3 = false;
+
+  tabSelectedIndex = 0;
 
   constructor(private fb: FormBuilder, private dashboardService: DashboardService, private route: ActivatedRoute) {
     this.changeComponentState(ComponentState.Loading);
@@ -160,6 +167,33 @@ export class DashboardComponent implements OnInit {
 
   showAlert() {
     this.alertState.showAlert(AlertType.Danger, "An error has occurred. Please try again later.");
+  }
+
+  selectedTabChange($event){
+    console.log("selected tab change");
+    this.isActive1 = false;
+    this.isActive2 = false;
+    this.isActive3 = false;
+  }
+
+  animationDone() {
+    switch (this.tabSelectedIndex) {
+      case 0:
+        this.isActive1 = true;
+        break;
+
+      case 1:
+        this.isActive2 = true;
+        break;
+
+      case 2:
+        this.isActive3 = true;
+        break;
+
+      default:
+        break;
+    }
+ 
   }
 
 }

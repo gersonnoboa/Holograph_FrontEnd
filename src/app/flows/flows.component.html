@@ -1,16 +1,46 @@
 <div *ngIf="isLoading" class="spinner">
-  <mat-spinner diameter="50"></mat-spinner>
+    <mat-spinner diameter="50"></mat-spinner>
 </div>
 <div *ngIf="!isLoading">
-  <mat-card>
-    <mat-card-title>Variant</mat-card-title>
-    <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>
-    <mat-form-field>
-      <mat-select placeholder="Variant" [value]="currentVariant" (change)="onVariantChange($event)">
-        <mat-option *ngFor="let variant of variants" [value]="variant.value">
-          {{ variant.text }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-card>
+
+    <mat-card>
+        <mat-card-title>Variant</mat-card-title>
+        <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>
+        <mat-grid-list cols="3" rowHeight="60px">
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-select placeholder="Variant" [value]="currentVariant" (change)="onVariantChange($event)">
+                        <mat-option *ngFor="let variant of variants" [value]="variant.value">
+                            {{ variant.text }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-select placeholder="Activity" [value]="currentActivity" (change)="onActivityChange($event)">
+                        <mat-option *ngFor="let activity of activities" [value]="activity.value">
+                            {{ activity.text }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-select placeholder="Chart Type" [value]="currentVisualization" (change)="onChartTypeChange($event)">
+                        <mat-option *ngFor="let chart of chartTypeChoices" [value]="chart">
+                            {{ chart }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+
+    <div class="chart" *ngIf="show">
+        <ngx-charts-bar-vertical [results]="chartData" [xAxis]="true" [yAxis]="true" [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true"
+            xAxisLabel="Resource" yAxisLabel="Seconds">
+        </ngx-charts-bar-vertical>
+    </div>
+    
 </div>

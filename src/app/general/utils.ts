@@ -16,14 +16,15 @@ export class Utils {
 
         for (let index = 0; index < activityList.length; index++) {
             let variantNumber = index + 1;
-            let activitiesCount = activityList[index].length;
+            let activities = activityList[index];
+            let activitiesCount = activities.length;
             let activitiesText = (activitiesCount == 1) ? "activity" : "activities";
             let text = `Variant ${variantNumber} (${activitiesCount} ${activitiesText})`;
 
-            let info = new VariantSelectInfo(index, text);
+            let info = new VariantSelectInfo(index, text, activities);
             variants.push(info);
         }
 
-        return variants
+        return variants;
     }
 }

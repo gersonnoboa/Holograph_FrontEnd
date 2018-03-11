@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit, Input, KeyValueDiffers, SimpleChanges } from '@angular/core';
 import { MiningService } from '../mining/mining.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -15,6 +15,9 @@ import { VariantSelectInfo } from '../general/general';
 export class TracesComponent implements OnInit {
 
   @Input("parameters") parameters: any;
+  show = false;
+  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
+
   data: any;
   differ: any;
 
@@ -24,6 +27,7 @@ export class TracesComponent implements OnInit {
   chartData = [];
   view = [600, 400];
   maxChartData: number = 100;
+  shouldShowChart: boolean = false;
 
   specificResourcesInformation: Array<SpecificResourceInformation>;
   factsInformation: Array<Fact>;
@@ -40,6 +44,14 @@ export class TracesComponent implements OnInit {
     var changes = this.differ.diff(this.parameters);
     if (changes) {
       this.requestTraceInformation();
+    }
+  }
+  
+  ngOnChanges(changes: any) {
+    console.log("changes");
+    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
+      console.log("it has to change to true");
+      this.show = true;
     }
   }
 
@@ -74,19 +86,29 @@ export class TracesComponent implements OnInit {
   }
 
   changeVisualizationData() {
-    let variant = this.data[this.currentVariant];
-    let activities = variant["activity_list"];
-    let temporalTextVariant = "";
+    if (this.data != null) {
+      let variant = this.data[this.currentVariant];
+      let activities = variant["activity_list"];
+      let temporalTextVariant = "";
 
-    for (let index = 0; index < activities.length; index++) {
-      const element = activities[index];
-      let ending = (index == activities.length - 1) ? "" : " > ";
-      temporalTextVariant += element + ending;
+      for (let index = 0; index < activities.length; index++) {
+        const element = activities[index];
+        let ending = (index == activities.length - 1) ? "" : " > ";
+        temporalTextVariant += element + ending;
+      }
+
+      this.textVariant = temporalTextVariant;
+      this.getResourceInformation(variant);
+      this.getFactInformation(variant);
+
+      if (this.isCurrentActiveTab == true) {
+        console.log("will change because it isactive");
+        this.show = true;
+      }
+      else {
+        console.log("will not change because it is not active");
+      }
     }
-
-    this.textVariant = temporalTextVariant;
-    this.getResourceInformation(variant);
-    this.getFactInformation(variant);
   }
 
   getFactInformation(variant) {

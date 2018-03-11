@@ -30,10 +30,43 @@ export class ServiceAdapter {
 
         return info;
     }
+
+    static parseFlowsInformation(information, activity, visualizationType) {
+        var newInfo = [];
+
+        let parameter = "";
+
+        if (visualizationType == FlowsVisualizationType.TimeBefore) {
+            parameter = "time_before";
+        }
+        else if (visualizationType == FlowsVisualizationType.TimeTaken) {
+            parameter = "time_taken";
+        }
+        else {
+            parameter = "time_after";
+        }
+
+        information.forEach(element => {
+            let currentActivity = element[activity];
+            let info = {
+                "name": currentActivity.resource,
+                "value": currentActivity[parameter]
+            };
+            newInfo.push(info);
+        });
+
+        return newInfo;
+    }
 }
 
 export enum ActiveTimeVisualizationType {
     Average = "Average time",
     Total = "Total time"
     
+}
+
+export enum FlowsVisualizationType {
+    TimeBefore = "Time before",
+    TimeTaken = "Time taken",
+    TimeAfter = "Time after"
 }

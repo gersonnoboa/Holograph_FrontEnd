@@ -63,10 +63,15 @@ span.fact-value {
     font-size: 18px;
 }
 
-.chart {
-  width: 70%;
+.chart, svg {
+  width: 100%;
   margin: 0 auto;
-  height: 400px;
+  height: 600px;
+}
+
+svg{
+    height: 100%;
+    width: 100%;
 }
 
 .spinner {

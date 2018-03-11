@@ -123,20 +123,20 @@
     
     </div>
     
-    <mat-tab-group *ngIf="isShowingInformation">
+    <mat-tab-group *ngIf="isShowingInformation" (selectedTabChange)="selectedTabChange($event)" [(selectedIndex)]="tabSelectedIndex" (animationDone)="animationDone()">
         <mat-tab label="By active time">
             <div>
-                <app-active-time [parameters]="parameters"></app-active-time>
+                <app-active-time [parameters]="parameters" [isCurrentActiveTab]="isActive1"></app-active-time>
             </div>
         </mat-tab>
         <mat-tab label="By variant">
             <div>
-                <app-traces [parameters]="parameters"></app-traces>
+                <app-traces [parameters]="parameters" [isCurrentActiveTab]="isActive2"></app-traces>
             </div>
         </mat-tab>
         <mat-tab label="By flow">
             <div>
-                <app-flows [parameters]="parameters"></app-flows>
+                <app-flows [parameters]="parameters" [isCurrentActiveTab]="isActive3"></app-flows>
             </div>
         </mat-tab>
     </mat-tab-group>

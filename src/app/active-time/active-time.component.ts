@@ -19,6 +19,11 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   private chartTypeChoices = Object.values(ChartType).filter(e => typeof (e) == "string");
 
   @Input("parameters") parameters: any;
+  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
+  show = false;
+
+  @Input("trial") trial: any;
+
   data: any;
   differ: any;
    
@@ -48,6 +53,12 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
     var changes = this.differ.diff(this.parameters);
     if (changes) {
       this.requestActiveTimeInformation();
+    }
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
+      this.show = true;
     }
   }
 
@@ -93,6 +104,11 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   changeVisualizationData(){
     let act = this.data.find(x => x.activity == this.currentActivity);
     this.visualizationData = ServiceAdapter.parseActiveTimeInformation(act.resources, this.currentVisualization);
+
+    if (this.isCurrentActiveTab == true) {
+      this.show = true;
+    }
+    
   }
 
   changeComponentState(state: ComponentState) {
