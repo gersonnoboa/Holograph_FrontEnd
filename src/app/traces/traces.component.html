@@ -2,6 +2,14 @@
     <mat-spinner diameter="50"></mat-spinner>
 </div> 
 <div *ngIf="!isLoading">
+
+    <mat-card>
+        <mat-card-subtitle>Description</mat-card-subtitle>
+        <mat-card-content>Extracts the variants of an event log and analyzes the impact a resource has on them. The graph shows the average execution
+            time of the variant when a resource is present. A lower amount is better. The facts about variants display information about resources, such
+            as the quickest ones, the ones that impacted the process in a positive way (the execution time with them is smaller
+            than without them), among others. Finally, a breakdown is offered for every resource involved in the variant.</mat-card-content>
+    </mat-card>
     <mat-card>
         <mat-card-title>Variant</mat-card-title>
         <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>

@@ -4,6 +4,11 @@
 <div *ngIf="!isLoading">
     <div>
         <mat-card>
+            <mat-card-subtitle>Description</mat-card-subtitle>
+            <mat-card-content>Shows information about the active time of all the activities in an event log. They can be visualized by average time
+                (total time divided by number of occurrences), or total time. There are a total of five graph types to choose from. A lower amount is better.</mat-card-content>
+        </mat-card>
+        <mat-card>
             <mat-grid-list cols="3" rowHeight="60px">
                 <mat-grid-tile>
                     <mat-form-field>

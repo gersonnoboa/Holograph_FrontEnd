@@ -25,7 +25,6 @@ export class TracesComponent implements OnInit {
   currentVariant: number;
   textVariant = "None";
   chartData = [];
-  view = [600, 400];
   maxChartData: number = 100;
   shouldShowChart: boolean = false;
 

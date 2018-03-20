@@ -32,7 +32,7 @@ export class ServiceAdapter {
     }
 
     static parseFlowsInformation(information, activity, visualizationType) {
-        var newInfo = [];
+        /*var newInfo = [];
 
         let parameter = "";
 
@@ -55,7 +55,37 @@ export class ServiceAdapter {
             newInfo.push(info);
         });
 
+        return newInfo;*/
+
+        var newInfo = [];
+
+        let parameter = "";
+
+        if (visualizationType == FlowsVisualizationType.TimeBefore) {
+            parameter = "time_before";
+        }
+        else if (visualizationType == FlowsVisualizationType.TimeTaken) {
+            parameter = "time_taken";
+        }
+        else {
+            parameter = "time_after";
+        }
+
+        console.log(information);
+        let currentActivity = information[activity];
+
+        currentActivity.resources.forEach(element => {
+
+            let info = {
+                "name": element.resource,
+                "value": element[parameter] / element.occurrences
+            }
+
+            newInfo.push(info);
+        });
+
         return newInfo;
+        
     }
 }
 

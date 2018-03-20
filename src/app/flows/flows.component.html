@@ -4,6 +4,10 @@
 <div *ngIf="!isLoading">
 
     <mat-card>
+        <mat-card-subtitle>Description</mat-card-subtitle>
+        <mat-card-content>Shows information about each flow within a variant. The information can be analyzed by selecting an activity within a variant. It displays the time before, during, and after the resources get involved in the process. A lower amount is better.</mat-card-content>
+    </mat-card>
+    <mat-card>
         <mat-card-title>Variant</mat-card-title>
         <mat-card-subtitle>{{ textVariant }}</mat-card-subtitle>
         <mat-grid-list cols="3" rowHeight="60px">
