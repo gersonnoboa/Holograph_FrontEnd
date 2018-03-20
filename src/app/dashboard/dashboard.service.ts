@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { LogType } from '../general/general'
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class DashboardService {
@@ -12,7 +13,7 @@ export class DashboardService {
     let params = {
       "fileID": fileID
     }
-    return this.http.get("http://localhost:5000/file-headers", {
+    return this.http.get(environment.url + "file-headers", {
       params: params
     });
   }
