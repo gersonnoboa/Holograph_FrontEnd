@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: "http://193.40.11.123/"
+  url: "https://holograph-backend.herokuapp.com/"
 };
