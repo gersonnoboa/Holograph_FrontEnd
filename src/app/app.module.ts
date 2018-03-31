@@ -23,6 +23,7 @@ import { DashboardService } from './dashboard/dashboard.service';
 import { TracesService } from './traces/traces.service';
 import { FlowsComponent } from './flows/flows.component';
 import { FlowsService } from './flows/flows.service';
+import { IndividualComponent } from './individual/individual.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard/:id', component: DashboardComponent },
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     ActiveTimeComponent,
     TracesComponent,
-    FlowsComponent
+    FlowsComponent,
+    IndividualComponent
   ],
   imports: [
     BrowserModule,

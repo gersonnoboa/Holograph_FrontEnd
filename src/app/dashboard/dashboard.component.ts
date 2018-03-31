@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   isActive1 = false;
   isActive2 = false;
   isActive3 = false;
+  isActive4 = false;
 
   tabSelectedIndex = 0;
 
@@ -71,9 +72,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getData() {
-    console.log("start getting data");
     this.dashboardService.requestFileHeaders(this.fileID).subscribe(response => {
-      console.log("got file headers");
       this.changeComponentState(ComponentState.AskingForFields);
       this.headers = (response as Array<Array<String>>)[0];
       this.firstLine = (response as Array<Array<String>>)[1];
@@ -162,7 +161,6 @@ export class DashboardComponent implements OnInit {
       default:
         break;
     }
-
   }
 
   showAlert() {
@@ -170,10 +168,10 @@ export class DashboardComponent implements OnInit {
   }
 
   selectedTabChange($event){
-    console.log("selected tab change");
     this.isActive1 = false;
     this.isActive2 = false;
     this.isActive3 = false;
+    this.isActive4 = false;
   }
 
   animationDone() {
@@ -188,6 +186,10 @@ export class DashboardComponent implements OnInit {
 
       case 2:
         this.isActive3 = true;
+        break;
+
+      case 3:
+        this.isActive4 = true;
         break;
 
       default:
