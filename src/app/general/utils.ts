@@ -1,4 +1,4 @@
-import { VariantSelectInfo } from "./general";
+import { VariantSelectInfo, SelectInfo } from "./general";
 
 export class Utils {
     static selectFromArray(array: Array<any>, property: string){
@@ -26,5 +26,16 @@ export class Utils {
         }
 
         return variants;
+    }
+
+    static getActivityInfoForSelect(data) {
+        let activities = [];
+
+        data.forEach((element, i) => {
+            let info = new SelectInfo(i, element["activity"]);
+            activities.push(info);
+        });
+
+        return activities;
     }
 }

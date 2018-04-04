@@ -24,6 +24,8 @@ import { TracesService } from './traces/traces.service';
 import { FlowsComponent } from './flows/flows.component';
 import { FlowsService } from './flows/flows.service';
 import { IndividualComponent } from './individual/individual.component';
+import { IndividualService } from './individual/individual.service';
+import { GroupComponent } from './group/group.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard/:id', component: DashboardComponent },
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     ActiveTimeComponent,
     TracesComponent,
     FlowsComponent,
-    IndividualComponent
+    IndividualComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ const appRoutes: Routes = [
     ActiveTimeService,
     DashboardService,
     TracesService,
-    FlowsService
+    FlowsService,
+    IndividualService
   ],
   bootstrap: [AppComponent]
 })

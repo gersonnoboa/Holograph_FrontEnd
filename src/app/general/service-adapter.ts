@@ -87,6 +87,20 @@ export class ServiceAdapter {
         return newInfo;
         
     }
+
+    static parseIndividualInformation(information) {
+        var newInfo = [];
+        information.resources.forEach(element => {
+            let info = {
+                "name": element.resource,
+                "value":element.time_taken
+            };
+
+            newInfo.push(info);
+        });
+
+        return newInfo;
+    }
 }
 
 export enum ActiveTimeVisualizationType {
