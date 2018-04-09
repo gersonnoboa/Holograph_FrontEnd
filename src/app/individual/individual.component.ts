@@ -63,10 +63,7 @@ export class IndividualComponent implements OnInit, DoCheck {
 
   getActivityInformation(){
     let selectedVariant = this.data[this.currentVariant];
-    console.log(selectedVariant);
-    console.log(this.currentIndividualType);
     let selectedType = selectedVariant[this.currentIndividualType];
-    console.log(selectedType);
 
     this.activities = Utils.getActivityInfoForSelect(selectedType);
     this.changeVisualization(selectedType);
@@ -98,6 +95,7 @@ export class IndividualComponent implements OnInit, DoCheck {
   ngOnChanges(changes: any) {
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
       this.show = true;
+      console.log("fuck individual");
     }
   }
 

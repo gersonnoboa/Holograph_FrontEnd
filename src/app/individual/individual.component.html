@@ -58,9 +58,20 @@
       <mat-card-title>Top Performers</mat-card-title>
       <mat-card-content>
         <mat-grid-list cols="3" rowHeight="100px">
-          <mat-grid-tile *ngFor="let resource of information">
-            <p>resource.name</p>
-            <p>resource.value</p> seconds
+          <mat-grid-tile *ngFor="let resource of chartData; let i = index" class="top-performers">
+            <div class="container">
+              <table>
+                <tr>
+                  <td class="position-row">
+                    <p class="position">{{ i + 1 }}</p>
+                  </td>
+                  <td class="information-row">
+                    <p class="name">{{resource.name}}</p>
+                    <p class="value">{{resource.value}} seconds</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </mat-grid-tile>
         </mat-grid-list>
       </mat-card-content>
@@ -69,7 +80,7 @@
   <div>
   </div>
 
-  <div class="chart">
+  <div class="chart" *ngIf="show">
     <ngx-charts-bar-vertical [results]="chartData" [xAxis]="true" [yAxis]="true"
       [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
     </ngx-charts-bar-vertical>

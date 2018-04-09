@@ -71,7 +71,6 @@ export class ServiceAdapter {
             parameter = "time_after";
         }
 
-        console.log(information);
         let currentActivity = information[activity];
 
         currentActivity.resources.forEach(element => {
@@ -99,6 +98,10 @@ export class ServiceAdapter {
             newInfo.push(info);
         });
 
+        newInfo.sort((a, b) => {
+            return a.value - b.value;
+        });
+            
         return newInfo;
     }
 }

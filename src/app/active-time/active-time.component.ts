@@ -22,8 +22,6 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   @Input("isCurrentActiveTab") isCurrentActiveTab = false;
   show = false;
 
-  @Input("trial") trial: any;
-
   data: any;
   differ: any;
    
@@ -59,6 +57,7 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   ngOnChanges(changes: any) {
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
       this.show = true;
+      console.log("fuck active time");
     }
   }
 

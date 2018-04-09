@@ -177,19 +177,23 @@ export class DashboardComponent implements OnInit {
   animationDone() {
     switch (this.tabSelectedIndex) {
       case 0:
-        this.isActive1 = true;
+        this.isActive4 = true;
         break;
 
       case 1:
-        this.isActive2 = true;
+        //this.isActive2 = true;
         break;
 
       case 2:
-        this.isActive3 = true;
+        this.isActive1 = true;
         break;
 
       case 3:
-        this.isActive4 = true;
+        this.isActive2 = true;
+        break;
+
+      case 4:
+        this.isActive3 = true;
         break;
 
       default:
