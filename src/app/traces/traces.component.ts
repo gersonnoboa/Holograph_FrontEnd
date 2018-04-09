@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, KeyValueDiffers, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, KeyValueDiffers, SimpleChanges, DoCheck } from '@angular/core';
 import { MiningService } from '../mining/mining.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -12,7 +12,7 @@ import { VariantSelectInfo } from '../general/general';
   templateUrl: './traces.component.html',
   styleUrls: ['./traces.component.css']
 })
-export class TracesComponent implements OnInit {
+export class TracesComponent implements OnInit, DoCheck {
 
   @Input("parameters") parameters: any;
   show = false;
@@ -26,7 +26,6 @@ export class TracesComponent implements OnInit {
   textVariant = "None";
   chartData = [];
   maxChartData: number = 100;
-  shouldShowChart: boolean = false;
 
   specificResourcesInformation: Array<SpecificResourceInformation>;
   factsInformation: Array<Fact>;
@@ -47,9 +46,8 @@ export class TracesComponent implements OnInit {
   }
   
   ngOnChanges(changes: any) {
-    console.log("changes");
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      console.log("it has to change to true");
+      console.log("fuck traces");
       this.show = true;
     }
   }

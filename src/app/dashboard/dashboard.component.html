@@ -124,6 +124,19 @@
     </div>
     
     <mat-tab-group *ngIf="isShowingInformation" (selectedTabChange)="selectedTabChange($event)" [(selectedIndex)]="tabSelectedIndex" (animationDone)="animationDone()">
+        
+        <mat-tab label="Individual">
+            <div>
+                <app-individual [parameters]="parameters" [isCurrentActiveTab]="isActive4"></app-individual>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Group">
+            <div>
+                <app-group></app-group>
+            </div>
+        </mat-tab>
+        
         <mat-tab label="By active time">
             <div>
                 <app-active-time [parameters]="parameters" [isCurrentActiveTab]="isActive1"></app-active-time>
@@ -139,5 +152,7 @@
                 <app-flows [parameters]="parameters" [isCurrentActiveTab]="isActive3"></app-flows>
             </div>
         </mat-tab>
+
+        
     </mat-tab-group>
 </div>

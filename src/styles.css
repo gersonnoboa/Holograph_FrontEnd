@@ -31,3 +31,11 @@ mat-toolbar {
     background-color: deeppurple;
     color: #ddd;
 }
+
+.spinner {
+  padding: 20px;
+}
+
+mat-card {
+    margin: 20px 0px;
+}

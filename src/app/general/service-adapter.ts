@@ -71,7 +71,6 @@ export class ServiceAdapter {
             parameter = "time_after";
         }
 
-        console.log(information);
         let currentActivity = information[activity];
 
         currentActivity.resources.forEach(element => {
@@ -86,6 +85,24 @@ export class ServiceAdapter {
 
         return newInfo;
         
+    }
+
+    static parseIndividualInformation(information) {
+        var newInfo = [];
+        information.resources.forEach(element => {
+            let info = {
+                "name": element.resource,
+                "value":element.time_taken
+            };
+
+            newInfo.push(info);
+        });
+
+        newInfo.sort((a, b) => {
+            return a.value - b.value;
+        });
+            
+        return newInfo;
     }
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, KeyValueDiffers, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, KeyValueDiffers, SimpleChanges, DoCheck } from '@angular/core';
 import { FlowsService } from './flows.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Utils } from '../general/utils';
@@ -10,7 +10,7 @@ import { ServiceAdapter, FlowsVisualizationType } from '../general/service-adapt
   templateUrl: './flows.component.html',
   styleUrls: ['./flows.component.css']
 })
-export class FlowsComponent implements OnInit {
+export class FlowsComponent implements OnInit, DoCheck {
 
   @Input("parameters") parameters: any;
   show = false;
@@ -49,6 +49,7 @@ export class FlowsComponent implements OnInit {
 
   ngOnChanges(changes: any) {
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
+      console.log("fuck flows");
       this.show = true;
     }
   }

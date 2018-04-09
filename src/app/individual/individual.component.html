@@ -1,0 +1,91 @@
+<div *ngIf="isLoading" class="spinner">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+  <div>
+    <mat-card>
+      <mat-card-subtitle>Description</mat-card-subtitle>
+      <mat-card-content>Shows information about the active time of all the activities in an event log. They can be visualized by average time
+        (total time divided by number of occurrences), or total time. There are a total of five graph types to choose from.
+        A lower amount is better.</mat-card-content>
+    </mat-card>
+  </div>
+
+  <div>
+    <mat-card>
+      <mat-card-content>
+
+        <mat-grid-list cols="3" rowHeight="60px">
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-select placeholder="Variant" [value]="currentVariant" (change)="onVariantChange($event)">
+                <mat-option *ngFor="let variant of variants" [value]="variant.value">
+                  {{ variant.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-select placeholder="Type" [value]="currentIndividualType" (change)="onIndividualTypeChange($event)">
+                <mat-option *ngFor="let type of individualTypeChoices" [value]="type">
+                  {{ type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field>
+              <mat-select placeholder="Activity" [value]="currentActivity" (change)="onActivityChange($event)">
+                <mat-option *ngFor="let activity of activities" [value]="activity.value">
+                  {{ activity.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+        
+      </mat-card-content>
+      
+    </mat-card>
+  </div>
+
+  <div>
+    <mat-card>
+      <mat-card-title>Top Performers</mat-card-title>
+      <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="100px">
+          <mat-grid-tile *ngFor="let resource of chartData; let i = index" class="top-performers">
+            <div class="container">
+              <table>
+                <tr>
+                  <td class="position-row">
+                    <p class="position">{{ i + 1 }}</p>
+                  </td>
+                  <td class="information-row">
+                    <p class="name">{{resource.name}}</p>
+                    <p class="value">{{resource.value}} seconds</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div>
+  </div>
+
+  <div class="chart" *ngIf="show">
+    <ngx-charts-bar-vertical [results]="chartData" [xAxis]="true" [yAxis]="true"
+      [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+  </div>
+
+  
+
+</div>

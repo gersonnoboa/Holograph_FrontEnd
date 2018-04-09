@@ -50,13 +50,10 @@ export class FileUploadComponent {
 
   private uploadFile(file: File) {
   	this.fileUploadService.uploadFile(file).subscribe(event => {
-      console.log(event.type);
       if (event.type === HttpEventType.UploadProgress) {
-        //console.log(Math.round(100 * event.loaded / event.total));
       } else if (event instanceof HttpResponse) {
         if (event.status == 200) {
           let file = event.body.toString();
-          console.log(file);
           this.changeToState(UploadState.SuccessfulUpload);
           this.redirectToActiveTime(file);
         }

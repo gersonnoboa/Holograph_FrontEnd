@@ -8,10 +8,6 @@
     padding-bottom: 10px;
 }
 
-mat-card {
-    margin: 20px 0px;
-}
-
 span.description{
     text-transform: uppercase;
     font-size: 10px;
@@ -72,8 +68,4 @@ span.fact-value {
 svg{
     height: 100%;
     width: 100%;
-}
-
-.spinner {
-  padding: 20px;
 }

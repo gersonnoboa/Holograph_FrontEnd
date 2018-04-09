@@ -1,0 +1,28 @@
+.chart {
+  width: 100%;
+  margin: 0 auto;
+  height: 600px;
+}
+
+.top-performers .position {
+    font-size: 36px;
+}
+
+.top-performers .name {
+    font-size: 26px;
+}
+
+.top-performers .container {
+    width: 100%;
+}
+
+.top-performers .container .position-row{
+    width: 100px;
+    text-align: right;
+    border-right: 1px solid black;
+    padding-right: 20px;
+}
+
+.top-performers .container .information-row{
+    padding-left:20px;
+}
