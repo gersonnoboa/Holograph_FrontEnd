@@ -1,4 +1,5 @@
 import { VariantSelectInfo, SelectInfo } from "./general";
+import { element } from "protractor";
 
 export class Utils {
     static selectFromArray(array: Array<any>, property: string){
@@ -37,5 +38,36 @@ export class Utils {
         });
 
         return activities;
+    }
+
+    static getInfoForSelect(data, field) {
+        let elements = [];
+        
+        data.forEach((element, i) => {
+            let info = new SelectInfo(i, element[field]);
+            elements.push(info);
+        });
+
+        return elements;
+    }
+
+    static generateSelectFromStrings(information) {
+        let elements = [];
+
+        information.forEach((element, i) => {
+            let info = new SelectInfo(element, element);
+            elements.push(info);
+        });
+
+        return elements;
+    }
+
+    static getUniques(array) {
+        return Array.from(new Set(array));
+    }   
+
+    static getSafeFirst(array) {
+        if (array == undefined || array == null || array.length == 0) return null;
+        return array[0];
     }
 }

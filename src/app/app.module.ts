@@ -26,6 +26,8 @@ import { FlowsService } from './flows/flows.service';
 import { IndividualComponent } from './individual/individual.component';
 import { IndividualService } from './individual/individual.service';
 import { GroupComponent } from './group/group.component';
+import { GroupService } from './group/group.service';
+import { GroupResourceComponent } from './group-resource/group-resource.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard/:id', component: DashboardComponent },
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     TracesComponent,
     FlowsComponent,
     IndividualComponent,
-    GroupComponent
+    GroupComponent,
+    GroupResourceComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ const appRoutes: Routes = [
     DashboardService,
     TracesService,
     FlowsService,
-    IndividualService
+    IndividualService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })
