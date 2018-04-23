@@ -1,0 +1,13 @@
+.chart {
+  width: 100%;
+  margin: 0 auto;
+  height: 600px;
+}
+
+.fact-name {
+    font-size: 24px;
+}
+
+.fact-value {
+    font-size: 18px;
+}

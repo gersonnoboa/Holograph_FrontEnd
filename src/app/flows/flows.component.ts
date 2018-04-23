@@ -49,7 +49,6 @@ export class FlowsComponent implements OnInit, DoCheck {
 
   ngOnChanges(changes: any) {
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      console.log("fuck flows");
       this.show = true;
     }
   }

@@ -95,7 +95,6 @@ export class IndividualComponent implements OnInit, DoCheck {
   ngOnChanges(changes: any) {
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
       this.show = true;
-      console.log("fuck individual");
     }
   }
 

@@ -104,6 +104,21 @@ export class ServiceAdapter {
             
         return newInfo;
     }
+
+    static parseGroupInformation(information) {
+        var newInfo = [];
+
+        information.forEach(element => {
+            let info = {
+                "name": element.from_resource + ">" + element.to_resource,
+                value: element.total_time / element.occurrences
+            }
+            newInfo.push(info);
+        });
+
+        return newInfo;
+    }
+    
 }
 
 export enum ActiveTimeVisualizationType {

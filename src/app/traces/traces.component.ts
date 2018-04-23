@@ -47,7 +47,6 @@ export class TracesComponent implements OnInit, DoCheck {
   
   ngOnChanges(changes: any) {
     if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      console.log("fuck traces");
       this.show = true;
     }
   }

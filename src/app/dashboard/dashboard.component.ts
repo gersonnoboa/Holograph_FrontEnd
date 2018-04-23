@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   isActive2 = false;
   isActive3 = false;
   isActive4 = false;
+  isActive5 = false;
 
   tabSelectedIndex = 0;
 
@@ -172,6 +173,7 @@ export class DashboardComponent implements OnInit {
     this.isActive2 = false;
     this.isActive3 = false;
     this.isActive4 = false;
+    this.isActive5 = false;
   }
 
   animationDone() {
@@ -181,7 +183,7 @@ export class DashboardComponent implements OnInit {
         break;
 
       case 1:
-        //this.isActive2 = true;
+        this.isActive5 = true;
         break;
 
       case 2:
