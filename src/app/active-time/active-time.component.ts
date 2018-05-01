@@ -4,32 +4,24 @@ import { AlertState, AlertType } from '../general/alert-state';
 import { Utils } from '../general/utils';
 import { ServiceAdapter, ActiveTimeVisualizationType } from '../general/service-adapter';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BaseInformationComponent } from '../general/base-information.component';
 
 @Component({
   selector: 'app-active-time',
   templateUrl: './active-time.component.html',
   styleUrls: ['./active-time.component.css']
 })
-export class ActiveTimeComponent implements OnInit, DoCheck {
+export class ActiveTimeComponent extends BaseInformationComponent implements DoCheck {
 
   private ActiveTimeVisualizationType = ActiveTimeVisualizationType;
   private visualizationChoices = Object.values(ActiveTimeVisualizationType).filter(e => typeof (e) == "string");
 
   private ChartType = ChartType;
   private chartTypeChoices = Object.values(ChartType).filter(e => typeof (e) == "string");
-
-  @Input("parameters") parameters: any;
-  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
-  show = false; 
-
-  data: any;
-  differ: any;
-   
+ 
   isAskingForActivity: boolean = false;
   isShowingChart: boolean = false;
   alertState: AlertState = new AlertState();
-
-  visualizationData = [];
 
   activities: Array<string>;
 
@@ -37,27 +29,9 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
   currentVisualization = ActiveTimeVisualizationType.Average;
   currentChartType = ChartType.Bar;
 
-  isLoading = true;
-
-  constructor(private activeTimeService: ActiveTimeService, private differs: KeyValueDiffers) { 
-    
-  }
-
-  ngOnInit() {   
-    this.differ = this.differs.find({}).create();
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestActiveTimeInformation();
-    }
-  }
-
-  ngOnChanges(changes: any) {
-    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      this.show = true;
-    }
+  constructor(private activeTimeService: ActiveTimeService, private dif: KeyValueDiffers) {
+    super(dif);
+    this.initialLoadingFunction = this.requestActiveTimeInformation;
   }
 
   requestActiveTimeInformation() {
@@ -67,9 +41,6 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
       this.getActivityInformation();
     },
       error => {
-        if (error instanceof HttpErrorResponse) {
-          console.log(error.message);
-        }
         this.showAlert();
       });
   }
@@ -101,16 +72,10 @@ export class ActiveTimeComponent implements OnInit, DoCheck {
 
   changeVisualizationData(){
     let act = this.data.find(x => x.activity == this.currentActivity);
-    this.visualizationData = ServiceAdapter.parseActiveTimeInformation(act.resources, this.currentVisualization);
-
-    if (this.isCurrentActiveTab == true) {
-      this.show = true;
-    }
-    
+    this.showChart(ServiceAdapter.parseActiveTimeInformation(act.resources, this.currentVisualization));
   }
 
   changeComponentState(state: ComponentState) {
-
     switch (state) {
       case ComponentState.IsShowingChart:
         this.isShowingChart = true;

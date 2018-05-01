@@ -58,7 +58,7 @@
       <mat-card-title>Top Performers</mat-card-title>
       <mat-card-content>
         <mat-grid-list cols="3" rowHeight="100px">
-          <mat-grid-tile *ngFor="let resource of chartData; let i = index" class="top-performers">
+          <mat-grid-tile *ngFor="let resource of visualizationData; let i = index" class="top-performers">
             <div class="container">
               <table>
                 <tr>
@@ -81,7 +81,7 @@
   </div>
 
   <div class="chart" *ngIf="show">
-    <ngx-charts-bar-vertical [results]="chartData" [xAxis]="true" [yAxis]="true"
+    <ngx-charts-bar-vertical [results]="visualizationData" [xAxis]="true" [yAxis]="true"
       [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
     </ngx-charts-bar-vertical>
   </div>

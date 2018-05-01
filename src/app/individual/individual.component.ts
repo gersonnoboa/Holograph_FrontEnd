@@ -2,26 +2,17 @@ import { Component, OnInit, Input, KeyValueDiffers, DoCheck } from '@angular/cor
 import { IndividualService } from './individual.service';
 import { Utils } from '../general/utils';
 import { ServiceAdapter } from '../general/service-adapter';
+import { BaseInformationComponent } from '../general/base-information.component';
 
 @Component({
   selector: 'app-individual',
   templateUrl: './individual.component.html',
   styleUrls: ['./individual.component.css']
 })
-export class IndividualComponent implements OnInit, DoCheck {
+export class IndividualComponent extends BaseInformationComponent implements OnInit, DoCheck {
 
-  @Input("parameters") parameters: any;
-  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
-  show = false;
-
-  differ: any;
-
-  isLoading = true;
-
-  data: any;
   variants: any;
   activities: any;
-  chartData: any = [];
 
   currentVariant = 0;
   currentActivity = 0;
@@ -30,17 +21,9 @@ export class IndividualComponent implements OnInit, DoCheck {
   individualTypeChoices = Object.values(IndividualType).filter(e => typeof (e) == "string");
   currentIndividualType = IndividualType.Initial;
   
-  constructor(private differs: KeyValueDiffers, private individualService: IndividualService) { }
-
-  ngOnInit() {
-    this.differ = this.differs.find({}).create();
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestIndividualInformation();
-    }
+  constructor(private dif: KeyValueDiffers, private individualService: IndividualService) { 
+    super(dif);
+    this.initialLoadingFunction = this.requestIndividualInformation;
   }
 
   requestIndividualInformation() {
@@ -49,7 +32,6 @@ export class IndividualComponent implements OnInit, DoCheck {
       this.data = event;
       this.getResourceInformation();
     }, error => {
-      console.log(error);
     });
   }
 
@@ -70,9 +52,8 @@ export class IndividualComponent implements OnInit, DoCheck {
   }
 
   changeVisualization(selectedType){
-    this.chartData = ServiceAdapter.parseIndividualInformation(selectedType[this.currentActivity]);
+    this.showChart(ServiceAdapter.parseIndividualInformation(selectedType[this.currentActivity]));
   }
-
 
   onIndividualTypeChange(event){
     this.currentActivity = 0;
@@ -91,13 +72,6 @@ export class IndividualComponent implements OnInit, DoCheck {
     this.currentActivity = event.value;
     this.getActivityInformation();
   }
-
-  ngOnChanges(changes: any) {
-    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      this.show = true;
-    }
-  }
-
 }
 
 enum IndividualType {

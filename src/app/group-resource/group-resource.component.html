@@ -1,3 +1,65 @@
-<p>
-  group-resource works!
-</p>
+<div *ngIf="isLoading" class="spinner">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="!isLoading">
+  <mat-card>
+    <mat-card-subtitle>Description</mat-card-subtitle>
+    <mat-card-content>Info</mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Activities</mat-card-title>
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="60px">
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-select placeholder="First activity" [value]="currentFirstActivity" (change)="onFirstActivityChanged($event)">
+              <mat-option *ngFor="let activity of firstActivities" [value]="activity.value">
+                {{ activity.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-select placeholder="Second activity" [value]="currentSecondActivity" (change)="onSecondActivityChanged($event)">
+              <mat-option *ngFor="let activity of secondActivities" [value]="activity.value">
+                {{ activity.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="chart" *ngIf="show">
+    <ngx-charts-bar-vertical [results]="visualizationData" [xAxis]="true" [yAxis]="true" [legend]="true" [showXAxisLabel]="true"
+      [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+  </div>
+
+  <mat-card>
+    <mat-card-title>Pair information</mat-card-title>
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile class="facts" *ngFor="let fact of filteredData">
+          <div style="width: 100%; text-align:center;">
+            <p>
+              <span class="fact-name">{{ fact.from_resource }} to {{ fact.to_resource }}</span>
+            </p>
+            <p>
+              <span class="fact-value">{{ fact.total_time / fact.occurrences | number : '1.2-2' }} s</span>
+            </p>
+            <p>
+              <span>Total time {{ fact.total_time }} s</span>
+            </p>
+            <p>
+              <span>Executed {{ fact.occurrences }} times</span>
+            </p>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+
+</div>

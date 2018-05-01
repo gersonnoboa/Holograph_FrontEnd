@@ -23,7 +23,7 @@
     </mat-card>
 
     <div class="chart" *ngIf="show">
-        <ngx-charts-gauge [results]="chartData" [min]="0" [max]="maxChartData" [angleSpan]="240" [startAngle]="-120" [units]="'seconds'"
+        <ngx-charts-gauge [results]="visualizationData" [min]="0" [max]="maxChartData" [angleSpan]="240" [startAngle]="-120" [units]="'seconds'"
             [bigSegments]="10" [smallSegments]="5">
         </ngx-charts-gauge>
     </div>

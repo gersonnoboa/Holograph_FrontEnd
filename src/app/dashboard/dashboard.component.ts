@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
   isActive3 = false;
   isActive4 = false;
   isActive5 = false;
+  isActive6 = false;
 
   tabSelectedIndex = 0;
 
@@ -80,9 +81,6 @@ export class DashboardComponent implements OnInit {
       this.subscribeToLogTypeChanges();
       this.showAppropriateParameters(LogType.ActiveTime);
     }, error => {
-      if (error instanceof HttpErrorResponse) {
-        console.log(error.message);
-      }
     });
   }
 
@@ -118,7 +116,6 @@ export class DashboardComponent implements OnInit {
 
   subscribeToLogTypeChanges() {
     this.formActiveTime.get("type").valueChanges.subscribe((value) => {
-      console.log("will show appropriate parameters");
       this.showAppropriateParameters(value);
     });
   }
@@ -174,6 +171,7 @@ export class DashboardComponent implements OnInit {
     this.isActive3 = false;
     this.isActive4 = false;
     this.isActive5 = false;
+    this.isActive6 = false;
   }
 
   animationDone() {
@@ -181,29 +179,25 @@ export class DashboardComponent implements OnInit {
       case 0:
         this.isActive4 = true;
         break;
-
       case 1:
         this.isActive5 = true;
         break;
-
       case 2:
+        this.isActive6 = true;
+        break;
+      case 3:
         this.isActive1 = true;
         break;
-
-      case 3:
+      case 4:
         this.isActive2 = true;
         break;
-
-      case 4:
+      case 5:
         this.isActive3 = true;
         break;
-
       default:
         break;
     }
- 
   }
-
 }
 
 enum ComponentState {

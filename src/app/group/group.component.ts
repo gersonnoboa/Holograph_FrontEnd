@@ -2,24 +2,14 @@ import { Component, OnInit, DoCheck, Input, KeyValueDiffers } from '@angular/cor
 import { GroupService } from './group.service';
 import { Utils } from '../general/utils';
 import { ServiceAdapter } from '../general/service-adapter';
+import { BaseInformationComponent } from '../general/base-information.component';
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.css']
 })
-export class GroupComponent implements OnInit, DoCheck {
-
-  @Input("parameters") parameters: any;
-  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
-  show = false;
-
-  data: any;
-  differ: any;
-
-  isLoading = true;
-
-  visualizationData = [];
+export class GroupComponent extends BaseInformationComponent implements OnInit, DoCheck {
 
   firstActivities: any;
   currentFirstActivity: any;
@@ -31,24 +21,10 @@ export class GroupComponent implements OnInit, DoCheck {
 
   filteredData: any;
   
-  constructor(private groupService: GroupService, private differs: KeyValueDiffers) { }
-
-  ngOnInit() {
-    this.differ = this.differs.find({}).create();
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestGroupInformation();
-    }
-  }
-
-  ngOnChanges(changes: any) {
-    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      this.show = true;
-    }
-  }
+  constructor(private groupService: GroupService, private dif: KeyValueDiffers) {
+    super(dif);
+    this.initialLoadingFunction = this.requestGroupInformation;
+   }
 
   requestGroupInformation() {
     this.groupService.requestFlowInformation(this.parameters).subscribe(event => {
@@ -80,15 +56,8 @@ export class GroupComponent implements OnInit, DoCheck {
       return element.from_activity == this.currentFirstActivity && element.to_activity == this.currentSecondActivity
     });
 
-    this.visualizationData = ServiceAdapter.parseGroupInformation(this.filteredData);
-    console.log(this.visualizationData);
-
-    if (this.isCurrentActiveTab == true) {
-      this.show = true;
-    }
+    this.showChart(ServiceAdapter.parseGroupInformation(this.filteredData));
   }
-
-
 
   onFirstActivityChanged(event) {
     this.currentFirstActivity = event.value;

@@ -4,20 +4,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Utils } from '../general/utils';
 import { VariantSelectInfo, SelectInfo } from '../general/general';
 import { ServiceAdapter, FlowsVisualizationType } from '../general/service-adapter';
+import { BaseInformationComponent } from '../general/base-information.component';
 
 @Component({
   selector: 'app-flows',
   templateUrl: './flows.component.html',
   styleUrls: ['./flows.component.css']
 })
-export class FlowsComponent implements OnInit, DoCheck {
+export class FlowsComponent extends BaseInformationComponent implements OnInit, DoCheck {
 
-  @Input("parameters") parameters: any;
-  show = false;
-  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
-
-  differ: any;
-  data: any;
   variants: any;
   currentVariant: any;
   textVariant = "None";
@@ -27,48 +22,26 @@ export class FlowsComponent implements OnInit, DoCheck {
   currentActivity: any;
 
   currentVisualization: FlowsVisualizationType = FlowsVisualizationType.TimeAfter;
-  chartData = [];
 
   private FlowsVisualizationType = FlowsVisualizationType;
   private chartTypeChoices = Object.values(FlowsVisualizationType).filter(e => typeof (e) == "string");
 
-  constructor(private flowsService: FlowsService, private differs: KeyValueDiffers) { 
-
-  }
-
-  ngOnInit() {
-    this.differ = this.differs.find({}).create();
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestFlowsInformation();
-    }
-  }
-
-  ngOnChanges(changes: any) {
-    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      this.show = true;
-    }
+  constructor(private flowsService: FlowsService, private dif: KeyValueDiffers) { 
+    super(dif);
+    this.initialLoadingFunction = this.requestFlowsInformation;
   }
 
   requestFlowsInformation() {
-
     this.flowsService.requestFlowInformation(this.parameters).subscribe(event => {
       this.isLoading = false;
       this.data = event;
       this.getFlowsInformation();
     }, error => {
-      if (error instanceof HttpErrorResponse) {
-        console.log(error.message);
-      }
     });
   }
 
   getFlowsInformation() {
     this.data = this.data as Array<any>;
-
     this.variants = Utils.getVariantInfoForSelect(this.data);
 
     if (this.variants.length > 0) {
@@ -128,12 +101,7 @@ export class FlowsComponent implements OnInit, DoCheck {
       }
 
       this.textVariant = temporalTextVariant;
-
-      this.chartData = ServiceAdapter.parseFlowsInformation(variant.statistics, this.currentActivity, this.currentVisualization);
-      
-      if (this.isCurrentActiveTab == true) {
-        this.show = true;
-      }
+      this.showChart(ServiceAdapter.parseFlowsInformation(variant.statistics, this.currentActivity, this.currentVisualization));
     }
   }
 

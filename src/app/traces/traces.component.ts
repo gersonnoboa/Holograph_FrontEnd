@@ -6,49 +6,26 @@ import { Utils } from '../general/utils';
 import { ServiceAdapter } from '../general/service-adapter';
 import { TracesService } from './traces.service';
 import { VariantSelectInfo } from '../general/general';
+import { BaseInformationComponent } from '../general/base-information.component';
 
 @Component({
   selector: 'app-traces',
   templateUrl: './traces.component.html',
   styleUrls: ['./traces.component.css']
 })
-export class TracesComponent implements OnInit, DoCheck {
-
-  @Input("parameters") parameters: any;
-  show = false;
-  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
-
-  data: any;
-  differ: any;
+export class TracesComponent extends BaseInformationComponent implements OnInit, DoCheck {
 
   variants: Array<VariantSelectInfo>;
   currentVariant: number;
   textVariant = "None";
-  chartData = [];
   maxChartData: number = 100;
 
   specificResourcesInformation: Array<SpecificResourceInformation>;
   factsInformation: Array<Fact>;
-  isLoading = true;
 
-  constructor(private tracesService: TracesService, private differs: KeyValueDiffers) { 
-  }
-
-  ngOnInit() {
-    this.differ = this.differs.find({}).create();
-  }
-
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      this.requestTraceInformation();
-    }
-  }
-  
-  ngOnChanges(changes: any) {
-    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      this.show = true;
-    }
+  constructor(private tracesService: TracesService, private dif: KeyValueDiffers) { 
+    super(dif);
+    this.initialLoadingFunction = this.requestTraceInformation;
   }
 
   requestTraceInformation() {
@@ -58,11 +35,6 @@ export class TracesComponent implements OnInit, DoCheck {
       this.getActivityInformation();
     },
       error => {
-        /*this.changeComponentState(ComponentState.AskingForFields);
-        if (error instanceof HttpErrorResponse) {
-          console.log(error.message);
-        }
-        this.showAlert();*/
       });
   }
 
@@ -96,14 +68,6 @@ export class TracesComponent implements OnInit, DoCheck {
       this.textVariant = temporalTextVariant;
       this.getResourceInformation(variant);
       this.getFactInformation(variant);
-
-      if (this.isCurrentActiveTab == true) {
-        console.log("will change because it isactive");
-        this.show = true;
-      }
-      else {
-        console.log("will not change because it is not active");
-      }
     }
   }
 
@@ -141,9 +105,10 @@ export class TracesComponent implements OnInit, DoCheck {
 
       temporalChartData.push(ServiceAdapter.parseTraceInformation(info));
     }); 
-    this.chartData = temporalChartData;
+    
+    this.showChart(temporalChartData);
     this.specificResourcesInformation = temporalResourceInformation;
-    this.maxChartData = this.getMaxValue(this.chartData);
+    this.maxChartData = this.getMaxValue(temporalChartData);
   }
 
   getMaxValue(data) {
@@ -175,22 +140,6 @@ export class TracesComponent implements OnInit, DoCheck {
     }
 
     return returningString;
-  }
-
-  getData() {
-    /*this.miningService.requestFileHeaders().subscribe(event => {
-      if (event instanceof HttpResponse) {
-        this.isLoading = false;
-      }
-    },
-    error => {
-      this.isLoading = false;
-      console.log("error");
-      if (error instanceof HttpErrorResponse) {
-        console.log(error.message);
-      }
-      
-    });*/
   }
 
 }
