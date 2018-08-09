@@ -27,7 +27,7 @@ export class GroupComponent extends BaseInformationComponent implements OnInit, 
    }
 
   requestGroupInformation() {
-    this.groupService.requestFlowInformation(this.parameters).subscribe(event => {
+    this.groupService.requestGroupActivityInformation(this.parameters).subscribe(event => {
       this.isLoading = false;
       this.data = event;
       this.getGroupInformation();
@@ -40,7 +40,11 @@ export class GroupComponent extends BaseInformationComponent implements OnInit, 
     let firstElements = Utils.getUniques(Utils.selectFromArray(connections, "from_activity"));
     this.firstActivities = Utils.generateSelectFromStrings(firstElements);
     this.currentFirstActivity = Utils.getSafeFirst(this.firstActivities).value;
+    this.getSecondActivityInformation();
+  }  
 
+  getSecondActivityInformation() {
+    let connections = this.data["two_sided_connections"];
     let filtered = connections.filter(element => {
       return element.from_activity == this.currentFirstActivity;
     });
@@ -49,7 +53,7 @@ export class GroupComponent extends BaseInformationComponent implements OnInit, 
     this.currentSecondActivity = Utils.getSafeFirst(this.secondActivities).value;
 
     this.changeVisualization();
-  }  
+  }
 
   changeVisualization() {
     this.filteredData = this.data["two_sided_connections"].filter(element => {
@@ -61,7 +65,7 @@ export class GroupComponent extends BaseInformationComponent implements OnInit, 
 
   onFirstActivityChanged(event) {
     this.currentFirstActivity = event.value;
-    this.getGroupInformation();
+    this.getSecondActivityInformation();
   }
 
   onSecondActivityChanged(event) {

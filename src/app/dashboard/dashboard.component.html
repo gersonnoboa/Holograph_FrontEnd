@@ -10,8 +10,7 @@
     <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
     
     <div class="parameter-request" *ngIf="isAskingForFields">
-        <button type="button" mat-raised-button color="primary" (click)="onSubmiTestClicked()">Submit Test</button>
-        
+        <button type="button" mat-raised-button color="primary" (click)="onSubmiTestClicked()">Go to Results Sandbox</button>
         <mat-card>
             <mat-card-title>Parameters</mat-card-title>
             <mat-card-content>
@@ -130,9 +129,9 @@
         <mat-tab label="Group by activity">
             <div><app-group [parameters]="parameters" [isCurrentActiveTab]="isActive5"></app-group></div>
         </mat-tab>
-        <mat-tab label="Group by resource">
-            <div><app-group [parameters]="parameters" [isCurrentActiveTab]="isActive6"></app-group></div>
-        </mat-tab>
+        <!-- <mat-tab label="Group by resource">
+            <div><app-group-resource [parameters]="parameters" [isCurrentActiveTab]="isActive6"></app-group-resource></div>
+        </mat-tab> -->
         <mat-tab label="By active time">
             <div><app-active-time [parameters]="parameters" [isCurrentActiveTab]="isActive1"></app-active-time></div>
         </mat-tab>

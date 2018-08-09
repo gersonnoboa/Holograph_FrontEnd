@@ -114,6 +114,20 @@ export class DashboardComponent implements OnInit {
     this.onSubmitClicked();
   }
 
+  onSubmiTest2Clicked() {
+    this.formActiveTime = this.fb.group({
+      "fileID": "09ae00a6-2e31-4422-8f42-b6ffb92b61a6.csv",
+      "caseID": "ï»¿CaseID",
+      "resource": "Resource",
+      "activity": "Activity",
+      "type": LogType.StartAndEndDate,
+      "parameterOne": "StartTimestamp",
+      "parameterTwo": "EndTimestamp",
+      "dateTimeFormat": "yyyy-MM-ddTHH:mm:ss"
+    });
+    this.onSubmitClicked();
+  }
+
   subscribeToLogTypeChanges() {
     this.formActiveTime.get("type").valueChanges.subscribe((value) => {
       this.showAppropriateParameters(value);

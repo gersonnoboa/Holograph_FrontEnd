@@ -1,38 +1,37 @@
 import { Component, OnInit, KeyValueDiffers, DoCheck, Input } from '@angular/core';
 import { GroupService } from '../group/group.service';
+import { BaseInformationComponent } from '../general/base-information.component';
+import { Utils } from '../general/utils';
 
 @Component({
   selector: 'app-group-resource',
   templateUrl: './group-resource.component.html',
   styleUrls: ['./group-resource.component.css']
 })
-export class GroupResourceComponent implements OnInit, DoCheck {
+export class GroupResourceComponent extends BaseInformationComponent implements OnInit, DoCheck {
 
-  @Input("parameters") parameters: any;
-  @Input("isCurrentActiveTab") isCurrentActiveTab = false;
-  show = false;
+  resources: any;
+  currentResource: any;
 
-  data: any;
-  differ: any;
-  isLoading = true;
-
-  constructor(private groupService: GroupService, private differs: KeyValueDiffers) { }
-
-  ngOnInit() {
-    this.differ = this.differs.find({}).create();
+  constructor(private groupService: GroupService, private dif: KeyValueDiffers) { 
+    super(dif);
+    this.initialLoadingFunction = this.requestGroupResourceInformation;
   }
 
-  ngDoCheck() {
-    var changes = this.differ.diff(this.parameters);
-    if (changes) {
-      //this.requestGroupInformation();
-    }
+  requestGroupResourceInformation() {
+    this.groupService.requestGroupResourceInformation(this.parameters).subscribe(event => {
+      this.isLoading = false;
+      this.data = event;
+      this.getGroupInformation();
+    });
   }
 
-  ngOnChanges(changes: any) {
-    if (changes.isCurrentActiveTab.currentValue == true && this.isLoading == false) {
-      this.show = true;
-    }
+  getGroupInformation() {
+    this.data = this.data as Array<any>;
+    let res = this.data["resources"];
+    this.resources = Utils.getInfoForSelect(res, "resource");
+    
+    
   }
 
 }

@@ -1,4 +1,17 @@
 <div class="container">
+
+    <mat-card>
+        <mat-card-title>Hello there!</mat-card-title>
+        <mat-card-content>
+            <div>Welcome to Holograph Front-End. This tool lets you analyze the impact of resources on the execution of a business process. Here you will be able to drag an event log in the form of a CSV file. This will send you to the parameters screen, where you will be able to select parameters such as CaseID, activity, resource, and times. Finally, the results will be shown to you.</div>
+            <div><br>If you want to go to the sandbox environment, please click on the button below <b>and then click on the button Go to Results Sandbox.</b></div>
+            <div>
+                <br>
+                <button type="button" mat-raised-button color="primary" (click)="onGoToSandboxClicked()">Go to Sandbox</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
     <div class="alert center-block alert-dismissible {{ alertState.type }}" role="alert" *ngIf="alertState.shouldShow">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

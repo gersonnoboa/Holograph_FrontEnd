@@ -98,6 +98,10 @@ export class FileUploadComponent {
     this.saveFiles(files);
   }
 
+  onGoToSandboxClicked() {
+    this.redirectToActiveTime("18b9dee2-a0b6-4d4c-a3bf-1f512f3a18ab.csv")
+  }
+
   @HostListener('dragover', ['$event']) onDragOver(event) {
     this.uploadText = UploadTextStateTexts.FileOnTop;
     this.dragAreaClass = "droparea";

@@ -7,8 +7,14 @@ export class GroupService {
 
   constructor(private http: HttpClient) { }
 
-  requestFlowInformation(parameters) {
+  requestGroupActivityInformation(parameters) {
     return this.http.get(environment.url + "group-activity", {
+      params: parameters
+    });
+  }
+
+  requestGroupResourceInformation(parameters) {
+    return this.http.get(environment.url + "group-resource", {
       params: parameters
     });
   }
