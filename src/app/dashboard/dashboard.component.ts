@@ -196,16 +196,16 @@ export class DashboardComponent implements OnInit {
       case 1:
         this.isActive5 = true;
         break;
-      case 2:
+      /*case 2:
         this.isActive6 = true;
-        break;
-      case 3:
+        break;*/
+      case 2:
         this.isActive1 = true;
         break;
-      case 4:
+      case 3:
         this.isActive2 = true;
         break;
-      case 5:
+      case 4:
         this.isActive3 = true;
         break;
       default:
