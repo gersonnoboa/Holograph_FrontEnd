@@ -77,10 +77,8 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div>
-  </div>
 
-  <div class="chart" *ngIf="show">
+  <div class="chart">
     <ngx-charts-bar-vertical [results]="visualizationData" [xAxis]="true" [yAxis]="true"
       [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Resource" yAxisLabel="Seconds" (select)="onSelect($event)">
     </ngx-charts-bar-vertical>

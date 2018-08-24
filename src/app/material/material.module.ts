@@ -14,6 +14,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatGridListModule,
     MatInputModule,
     MatTableModule,
-    MatChipsModule
+    MatChipsModule, 
+    MatButtonToggleModule
   ],
   exports: [
     MatToolbarModule,
@@ -46,7 +48,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatGridListModule,
     MatInputModule,
     MatTableModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonToggleModule
   ],
   declarations: []
 })

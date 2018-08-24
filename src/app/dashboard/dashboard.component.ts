@@ -89,6 +89,8 @@ export class DashboardComponent implements OnInit {
     this.formActiveTime.patchValue({ "fileID": this.fileID });
     this.changeComponentState(ComponentState.ShowingActiveTime);
     this.parameters = this.formActiveTime.value;
+
+    this.isActive1 = true;
   }
 
   onSubmiTestClicked(){
@@ -186,6 +188,41 @@ export class DashboardComponent implements OnInit {
     this.isActive4 = false;
     this.isActive5 = false;
     this.isActive6 = false;
+  }
+
+  deactivateAll() {
+    this.isActive1 = false;
+    this.isActive2 = false;
+    this.isActive3 = false;
+    this.isActive4 = false;
+    this.isActive5 = false;
+    this.isActive6 = false;
+  }
+
+  selectedButtonChange($event) {
+    this.deactivateAll();
+
+    switch($event.value) {
+      case "individual":
+        this.isActive1 = true;
+        break;
+
+      case "group-by-activity":
+        this.isActive2 = true;
+        break;
+
+        case "active-time": 
+        this.isActive3 = true;  
+      break;
+
+      case "variant":
+        this.isActive4 = true;
+        break;
+
+      case "flow":
+        this.isActive5 = true;
+        break;
+    }
   }
 
   animationDone() {

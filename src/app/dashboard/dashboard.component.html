@@ -122,24 +122,41 @@
     
     </div>
     
-    <mat-tab-group *ngIf="isShowingInformation" (selectedTabChange)="selectedTabChange($event)" [(selectedIndex)]="tabSelectedIndex" (animationDone)="animationDone()">
-        <mat-tab label="Individual">
-            <div><app-individual [parameters]="parameters" [isCurrentActiveTab]="isActive4"></app-individual></div>
-        </mat-tab>
-        <mat-tab label="Group by activity">
-            <div><app-group [parameters]="parameters" [isCurrentActiveTab]="isActive5"></app-group></div>
-        </mat-tab>
-        <!-- <mat-tab label="Group by resource">
-            <div><app-group-resource [parameters]="parameters" [isCurrentActiveTab]="isActive6"></app-group-resource></div>
-        </mat-tab> -->
-        <mat-tab label="By active time">
-            <div><app-active-time [parameters]="parameters" [isCurrentActiveTab]="isActive1"></app-active-time></div>
-        </mat-tab>
-        <mat-tab label="By variant">
-            <div><app-traces [parameters]="parameters" [isCurrentActiveTab]="isActive2"></app-traces></div>
-        </mat-tab>
-        <mat-tab label="By flow">
-            <div><app-flows [parameters]="parameters" [isCurrentActiveTab]="isActive3"></app-flows></div>
-        </mat-tab>        
-    </mat-tab-group>
+    <mat-button-toggle-group *ngIf="isShowingInformation" #group="matButtonToggleGroup" (change)="selectedButtonChange($event)" color="primary">
+        <mat-button-toggle value="individual" [checked]="true">
+            Individual
+        </mat-button-toggle>
+        <mat-button-toggle value="group-by-activity">
+            Group by activity
+        </mat-button-toggle>
+        <mat-button-toggle value="active-time">
+            Active time
+        </mat-button-toggle>
+        <mat-button-toggle value="variant">
+            Variant
+        </mat-button-toggle>
+        <mat-button-toggle value="flow">
+            Flow
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div *ngIf="isActive1">
+        <app-individual [parameters]="parameters" [isCurrentActiveTab]="isActive4"></app-individual>
+    </div>
+
+    <div *ngIf="isActive2">
+        <app-group [parameters]="parameters" [isCurrentActiveTab]="isActive5"></app-group>
+    </div>
+
+    <div *ngIf="isActive3">
+        <app-active-time [parameters]="parameters" [isCurrentActiveTab]="isActive1"></app-active-time>
+    </div>
+
+    <div *ngIf="isActive4">
+        <app-traces [parameters]="parameters" [isCurrentActiveTab]="isActive2"></app-traces>
+    </div>
+
+    <div *ngIf="isActive5">
+        <app-flows [parameters]="parameters" [isCurrentActiveTab]="isActive3"></app-flows>
+    </div>
 </div>
